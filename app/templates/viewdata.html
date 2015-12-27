@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block styles %}
+{{super()}}
+<title>View Data</title>
+<link rel="stylesheet" href="../static/css/lesson.css" type="text/css">
+{% endblock %}
+
+{% block content %}
+<form class="form" action="" method="post">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-0">
+			<H1 align="center">View decoded data</H1>	
+			{% if not decodedata %}
+				<p>No data available. </p>
+			{% else %}
+				{% for item in decodedata %}
+					<p>id: {{item.id}}</p>
+					<p> firstname: {{item.firstname}}</p>
+					<p> lastname: {{item.lastname}}</p>
+					<p> tel: {{item.tel}}</p>
+					<p> secret: {{item.secret}}</p>
+					<hr>
+				{% endfor %}
+			{% endif %}
+		</div>
+
+		<div class="col-md-6 col-md-offset-0">
+			<H1 align="center">View encoded data</H1>	
+			{% if not encodedata %}
+				<p>No data available. </p>
+			{% else %}
+				{% for item in encodedata %}
+					<p>id: {{item.id}}</p>
+					<p> firstname: {{item.firstname}}</p>
+					<p> lastname: {{item.lastname}}</p>
+					<p> tel: {{item.tel}}</p>
+					<p> secret: {{item.secret}}</p>
+					<hr>
+				{% endfor %}
+			{% endif %}
+
+		</div>
+	</div>
+</form>
+{% endblock %}

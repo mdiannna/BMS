@@ -1,0 +1,70 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="../static/css/base.css" type="text/css">
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="../static/css/bootstrap.css" type="text/css">
+<!-- Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css" type="text/css">
+<!-- Plugin CSS -->
+<link rel="stylesheet" href="../static/css/animate.min.css" type="text/css">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="../static/css/creative.css" type="text/css">
+
+{% endblock %}
+
+{% block navbar %}
+<nav id="mainNav" class="navstyle navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="/">Home</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="page-scroll" href="/register">Register</a>
+                </li>
+                <!-- <li>
+                    <a class="page-scroll" href="/login">Login</a>
+                </li>
+                 -->
+                {% if current_user.is_authenticated() %}
+                    <li>
+                        <a class="page-scroll" href="/viewdata">View data</a>
+                    </li>
+                    <li>
+                        <a href="/adddata"><font color="#F05F40"><span class="glyphicon glyphicon-plus"></span> Data</a></font>
+                    </li>
+                    <li>
+                        <a href="/logout"><font color="#F05F40"><span class="glyphicon glyphicon-log-out"></span></a></font>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="/login"><span class="glyphicon glyphicon-log-in"></span> <!-- Log In --></a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{url_for('.static', filename='js/jquery.js')}}"></script>
+<script src="{{url_for('.static', filename='js/bootstrap.min.js')}}"></script>
+{% endblock %}

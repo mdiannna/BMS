@@ -1,0 +1,7 @@
+# database files
+*.db
+# compiled files
+*.pyc
+
+app/settings.py
+migrations/

@@ -1,0 +1,221 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+{{super()}}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
+<!-- Fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css" type="text/css">
+<!-- Plugin CSS -->
+<link rel="stylesheet" href="../static/css/animate.min.css" type="text/css">
+
+<!-- Custom CSS -->
+<link rel="stylesheet" href="../static/css/creative.css" type="text/css">
+<title>Vreau sa fiu învăț</title>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        {% endblock %}
+
+        {% block content %}
+        <body id="page-top">
+            <header>
+                <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <!-- <a class="navbar-brand page-scroll" href="#page-top">Pagina principală</a> -->
+                            <a class="navbar-brand page-scroll" href="/">Pagina principală</a>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    {% if not lessons%}
+                                    <a href="/lessongallery">Matematica</a>
+                                    {% else %}
+                                    <a class="page-scroll" href="#portfolio">Matematica</a>
+                                    {% endif %}
+                                </li>
+                                <li>
+                                    <a class="page-scroll" href="#about">Despre noi</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" href="#contact">Contactează-ne</a>
+                                </li>
+                                {% if current_user.is_authenticated() %}
+                                <li>
+                                    <a href="/addlesson"><font color="#F05F40"><span class="glyphicon glyphicon-plus"></span> Lecție</a></font>
+                                </li>
+                                <li>
+                                    <a href="/logout"><font color="#F05F40"><span class="glyphicon glyphicon-log-out"></span></a></font>
+                                </li>
+                                {% else %}
+                                <li>
+                                    <a href="/login"><span class="glyphicon glyphicon-log-in"></span> <!-- Log In --></a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+            <div class="header-content">
+                <div class="header-content-inner">
+                    <h1>Vreau să învăț</h1>
+                    <h4>Învață împreună cu noi mai ușor și reamintește-ți ce ai uitat!</h4>
+                    <!-- <hr> -->
+                    <a href="#portfolio" class="btn btn-primary btn-xl page-scroll">Începe</a>
+                </div>
+            </div>
+        </header>
+
+
+        <!-- Olimpiade si noutati-->
+    <!-- <section class="bg-primary" id="noutati">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Olimpiade şi noutăţi</h2>
+                    <hr class="light">
+                    <p class="text-faded">Aici vor fi plasate anunţuri despre toate concursurile şi olimpiadele!</p>
+                    <a href="#" class="btn btn-default btn-xl">Vezi mai mult!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+-->
+{% if not lessons%}
+<div id="portfolio"></div>
+{% else %}
+<section class="no-padding" id="portfolio"  style="background:#222;">
+    <div class="container-fluid" >
+        <div class="row no-gutter" style="">
+
+            {% for lesson in lessons %}
+            {% if loop.index <= 3 %}
+            <div class="col-lg-4 col-sm-6" align="center" style="vertical-align:middle" >
+                <a href="/lesson/{{lesson.id}}" class="portfolio-box" align="center" >
+                    <img src="{{lesson.img_link}}" class="img-responsive" alt="" style="vertical-align:middle; max-height:220px; width:100%">
+                    <div class="portfolio-box-caption" >
+                        <div class="portfolio-box-caption-content">
+                            <div class="project-category text-faded">
+                                Matematica
+                            </div>
+                            <div class="project-name">
+                                Tema {{loop.index}} {{lesson.title}}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            {% for i in range(loop.index, 4)%}
+            <div class="col-lg-4 col-sm-6">
+                <a class="portfolio-box-inactive">
+                    <!-- <img src="../static/img/portfolio/default.jpg" class="img-responsive" alt=""> -->
+                    <img src="{{imag[i-1]}}" class="img-responsive" alt="" style="max-height:220px; width:100%;">
+
+                    <div class="portfolio-box-caption-inactive">
+                        <div class="portfolio-box-caption-content-inactive">
+                            <div class="project-category-inactive text-faded">
+                                <br><br>
+                                Coming soon
+                            </div>
+                            <div class="project-name-inactive">
+                                În curînd aici va apărea un nou video :)
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}       
+        </div>
+    </div>
+</section>
+
+<aside class="bg-dark row" style="">
+    <div class="container text-center">
+        <div class="call-to-action">
+            <h2>Mai sunt încă multe lecţii</h2>
+            <a href="/lessongallery" class="btn btn-primary btn-xl wow tada">Vezi toate lecțiile!</a>
+        </div>
+    </div>
+</aside>
+
+{% endif %}
+<section id="about" class="bg-orange">
+    <div class="text-center ">
+        <h2>DESPRE NOI</h2>
+    </div>
+    <div class="container text-center" >
+        <h3>VreauSăÎnvăț este o platformă educațională online creată în Republica Moldova, care are scopul să asiste învațămîntul școlar prin oferirea de materiale suplimentare și lecții online.
+            <br>
+            Ideea acestui proiect a fost concepută în cadrul școlii de vară Wave Week Moldova. </h3>
+        </div>
+    </section>
+
+
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">CONTACTEAZĂ-NE!</h2>
+                    <hr class="primary">
+                    <p>Vrei să ne transmiţi comentarii sau sugestii? Ne poţi scrie!</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-4 text-center">
+                    <a href="mailto:your-email@your-domain.com">
+                        <i class="fa fa-envelope-o fa-3x wow bounceIn" data-wow-delay=".1s" href="mailto:your-email@your-domain.com"></i>
+                    </a>
+                    <p><a href="mailto:justlearnmd@gmail.com">justlearnmd@gmail.com</a></p>
+                </div>
+            <!-- <div class="col-lg-5 col-lg-offset-3">
+                 <i class="fa fa-facebook fa-3x wow bounceIn"></i>
+                 <i class="fa fa-youtube fa-3x wow bounceIn"></i>
+             </div> -->
+         </div>
+     </div>
+ </section>
+</body>
+{% endblock %}
+
+{% block scripts %}
+<!-- jQuery -->
+<script src="{{url_for('.static', filename='js/jquery.js')}}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{{url_for('.static', filename='js/bootstrap.min.js')}}"></script>
+
+<!-- Plugin JavaScript -->
+<script src="{{url_for('.static', filename='js/jquery.easing.min.js')}}"></script>
+<script src="{{url_for('.static', filename='js/jquery.fittext.js')}}"></script>
+<script src="{{url_for('.static', filename='js/wow.min.js')}}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{{url_for('.static', filename='js/creative.js')}}"></script>
+
+{% endblock %}

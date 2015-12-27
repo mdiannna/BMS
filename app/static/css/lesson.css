@@ -1,0 +1,30 @@
+body{
+	/*background-color: #F05F40;*/
+	margin-top: 60px;
+	background-color: #222;
+	/*background-color: #303030;*/
+	color: #FFFFFF;
+	text-align: justify;
+}
+
+h1{
+	color: #F29316;
+	margin-bottom: 20px;
+}
+
+.frame{
+	background-color: #222;
+	/*background-color: #303030;*/
+	/*width: 1000px;*/
+	/*height: 200px;*/
+}
+
+.lesson_text {
+	height: 700px;
+	/*background-color: #F05F40;*/
+	text-align: justify;
+}
+
+p{
+	text-indent: 100px;
+}
