@@ -2,8 +2,8 @@ from app import app, db
 from app import login_manager
 from flask import render_template, request, redirect
 from forms import LoginForm, RegisterForm, AddDataForm
-from app.models import UserData
-from flask.ext.login import login_user, login_required, logout_user
+from app.models import UserData, PersonalData
+from flask.ext.login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 import random
@@ -63,12 +63,15 @@ def decodeData(data, key):
 	for char in data:
 			if k == remained_to_skip:
 				final_string += char
+				# This is a temporary solution
+				if j == len(key):
+					return final_string
 				remained_to_skip = int(key[j])
 				j += 1
 			else:
 				remained_to_skip = remained_to_skip - 1
-			print "skip:"
-			print remained_to_skip
+			# print "skip:"
+			# print remained_to_skip
 	return final_string
 
 
@@ -102,6 +105,30 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	form = RegisterForm(request.form, csrf_enabled=True)
+	
+	if request.method == 'POST':
+	
+		key = passToKey(form.key.data)
+		username=encodeData(form.username.data, key)
+		# password = generate_password_hash(form.password.data)
+		# print "hash:", password
+		password=encodeData(form.password.data, key)
+		print "passw:", password
+		firstname=encodeData(form.firstname.data, key)
+		lastname=encodeData(form.lastname.data, key)
+		# tel=encodeDataInt(form.tel.data, key)
+		tel=encodeDataInt(form.tel.data, key)
+
+		user = UserData(username=username,
+			password=password,
+			firstname=firstname,
+			lastname=lastname,
+			tel=tel)
+		db.session.add(user)
+		db.session.commit()
+		key = ""
+		return redirect('/')
+	
 	return render_template("register.html", form=form)
 
 
@@ -111,22 +138,18 @@ def adddata():
 	form = AddDataForm(request.form, csrf_enabled=True)
 	if request.method == "POST":
 		global key
-		firstname=encodeData(form.firstname.data, key)
-		lastname=encodeData(form.lastname.data, key)
-		tel=encodeDataInt(form.tel.data, key)
 		secret=encodeData(form.secret.data, key)
+		photo=encodeData(form.photo.data, key)
+		video=encodeData(form.video.data, key)
 
-		username = "nick"
-
-		password = "password"
-		password = generate_password_hash(password)
-
-		data = UserData(username=username,
-			password=password,
-			firstname=firstname,
-			lastname=lastname,
-			tel=tel, 
-			secret=secret)
+		# username = "nick"
+		# password = "password"
+		# password = generate_password_hash(password)
+		user_id = current_user.get_id()
+		data = PersonalData(secret=secret, 
+			photo=photo,
+			video=video, 
+			user_id=user_id)
 		db.session.add(data)
 		db.session.commit()
 		return redirect('/viewdata')
@@ -139,7 +162,8 @@ def decodeItem(item, key):
 	item.firstname = decodeData(str(item.firstname), key)
 	item.lastname = decodeData(item.lastname, key)
 	item.tel = decodeData(item.tel, key)
-	item.secret = decodeData(item.secret, key)
+	item.username = decodeData(item.username, key)
+	# item.secret = decodeData(item.secret, key)
 
 
 @app.route('/viewdata', methods=['GET', 'POST'])
@@ -164,22 +188,28 @@ def login():
 	# if form.validate_on_submit():
 	if request.method == "POST":
 		print '************'
-		print form.username.data, form.password.data
+		# print form.username.data, form.password.data
 		# password = form.password.data
 		# password = encodeData(raw_password, key)
 		# password = generate_password_hash(form.password.data)
+		username = form.username.data
+		print "username:", username
 		password = form.password.data
-		print password
-		users = UserData.query.filter_by(username=form.username.data).all()
+		print "password:", password
+		
+		users = UserData.query.all()
 		print "########"
 		for user in users:
-			print "username:", user.username
-			print "pass:", user.password
-			if check_password_hash(user.password, password):
-				login_user(user)
-				print 'logged in successfully'
-				return redirect('/viewdata')
-				break
+			user_username = decodeData(user.username , key)
+			user_password = decodeData(user.password, key)
+			print "user_name:", user_username
+			print "user_pass:", user_password
+			if username == user_username and password == user_password:
+				# if check_password_hash(user_password, password):
+					login_user(user)
+					print 'logged in successfully'
+					return redirect('/viewdata')
+					break
 		error = "login unsuccesful"
 		print error
 	return render_template("login.html", form = form, error=error)
