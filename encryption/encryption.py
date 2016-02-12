@@ -17,6 +17,9 @@ def readKey(nr, K, key_len):
 		nr1 = nr1 / 10
 		i -= 1
 
+def printK(K, key_len):
+	for i in range(0, key_len):
+		print K[i]
 
 
 def encryptMessage(plaintext, K,  key_len):
@@ -65,6 +68,12 @@ def encryptBlocks(plaintext, K, key_len, block_size):
 
 	return ciphertext
 
+
+def generateRandomKey(key_len):
+	rand_key = 0
+	for i in range(0, key_len):
+		rand_key = rand_key*10 + random.randint(1, 9)
+	return rand_key
 
 
 # def dencryptMessage(ciphertext, key,  key_len):
