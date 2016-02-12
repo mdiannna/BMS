@@ -2,26 +2,6 @@ import random
 import string
 
 
-def readKey(nr, K, key_len):
-	key_len = 0
-	nr1 = nr
-
-	while nr>0:
-		nr = nr / 10
-		key_len += 1
-
-	i = key_len - 1
-
-	while nr1>0:
-		K[i] = nr1 % 10
-		nr1 = nr1 / 10
-		i -= 1
-
-def printK(K, key_len):
-	for i in range(0, key_len):
-		print K[i]
-
-
 def encryptMessage(plaintext, K,  key_len):
 	if not K:
 		return "no key"
@@ -34,17 +14,22 @@ def encryptMessage(plaintext, K,  key_len):
 	print "key_len=", key_len
 
 	while letter_pos < plaintext_len:
-		ciphertext += plaintext[letter_pos]
-
+		
 		for i in range(0, K[key_pos]):
 			extraCh = random.choice(string.ascii_letters)
 			ciphertext = ciphertext + str(extraCh)
+
+		ciphertext += plaintext[letter_pos]
 
 		letter_pos += 1
 		key_pos += 1
 
 		if key_pos == key_len:
 			key_pos = 0;
+
+	for i in range(0, K[key_pos]):
+		extraCh = random.choice(string.ascii_letters)
+		ciphertext = ciphertext + str(extraCh)
 
 	return ciphertext
 
@@ -56,7 +41,7 @@ def encryptBlocks(plaintext, K, key_len, block_size):
 
 	while letter_pos < plaintext_len:
 		block = ""
-		for i in range(0, block_size-1):
+		for i in range(0, block_size):
 			if letter_pos < plaintext_len:
 				block = block + plaintext[letter_pos]
 				letter_pos += 1
@@ -74,6 +59,29 @@ def generateRandomKey(key_len):
 	for i in range(0, key_len):
 		rand_key = rand_key*10 + random.randint(1, 9)
 	return rand_key
+
+
+def firstKeyToKey(first_key, key_len, block_pos, del_pos):
+	block_size = 0
+	new_key = [0]*key_len
+	new_key_pos = 0
+
+	for i in range(0, block_pos):
+		block_size = block_size*10 + first_key[i]
+
+	print "block size:",block_size
+
+	for key_pos in range(0, key_len):
+		if key_pos >= del_pos and key_pos <= del_pos + first_key[del_pos]:
+			pass
+		elif key_pos >= block_pos and key_pos <= block_pos + first_key[block_pos]:
+			pass
+		else:
+			new_key[new_key_pos] = first_key[key_pos]
+			new_key_pos += 1
+
+	return new_key	
+
 
 
 # def dencryptMessage(ciphertext, key,  key_len):
