@@ -1,5 +1,5 @@
 
-def decryptMessage(plaintext, K,  key_len):
+def simpleDecrypt(plaintext, K,  key_len):
 	if not K:
 		return "no key"
 	ciphertext = ""

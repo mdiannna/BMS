@@ -1,27 +1,5 @@
-from encryption import encryptMessage, encryptBlocks, generateRandomKey, firstKeyToKey
-from decryption import decryptMessage
-
-
-
-def readKey(nr, K, key_len):
-	key_len = 0
-	nr1 = nr
-
-	while nr>0:
-		nr = nr / 10
-		key_len += 1
-
-	i = key_len - 1
-
-	while nr1>0:
-		K[i] = nr1 % 10
-		nr1 = nr1 / 10
-		i -= 1
-
-
-def printK(K, key_len):
-	for i in range(0, key_len):
-		print K[i]
+from encryption import readKey, printK, generateRandomKey, firstKeyToKey, simpleEncrypt, blockEncrypt, randomBlockEncrypt
+from decryption import simpleDecrypt
 
 
 
@@ -50,12 +28,17 @@ key_len = first_key_len - FK[del_pos]-1 - FK[block_pos] - 1
 print "---------------------new key: ----------"
 printK(K, key_len)
  
-print encryptMessage(plaintext, K, key_len)
+print simpleEncrypt(plaintext, K, key_len)
 
 print "Encrypt Blocks of ", block_size, " :"
-print encryptBlocks(plaintext, K, key_len, block_size)
+print blockEncrypt(plaintext, K, key_len, block_size)
 
-
+print "-------------------------------"
+print "Random Encrypt:"
+ciphertext = randomBlockEncrypt(plaintext, K, key_len, block_size)
+print ciphertext
+print "Decrytpion:"
+print simpleDecrypt(ciphertext, K, key_len)
 
 '''
 # Random key test

@@ -2,7 +2,53 @@ import random
 import string
 
 
-def encryptMessage(plaintext, K,  key_len):
+
+
+def readKey(nr, K, key_len):
+	key_len = 0
+	nr1 = nr
+
+	while nr>0:
+		nr = nr / 10
+		key_len += 1
+
+	i = key_len - 1
+
+	while nr1>0:
+		K[i] = nr1 % 10
+		nr1 = nr1 / 10
+		i -= 1
+
+
+def printK(K, key_len):
+	for i in range(0, key_len):
+		print K[i]
+
+
+def firstKeyToKey(first_key, key_len, block_pos, del_pos):
+    block_size = 0
+    new_key = [0]*key_len
+    new_key_pos = 0
+ 
+    for i in range(block_pos+1, first_key[block_pos+first_key[block_pos]]):
+        block_size = block_size*10 + first_key[i]
+ 
+    print "block size:",block_size
+ 
+    for key_pos in range(0, key_len):
+        if key_pos >= del_pos and key_pos <= del_pos + first_key[del_pos]:
+            pass
+        elif key_pos >= block_pos and key_pos <= block_pos + first_key[block_pos]:
+            pass
+        else:
+            new_key[new_key_pos] = first_key[key_pos]
+            new_key_pos += 1
+ 
+    
+    return new_key, block_size
+
+
+def simpleEncrypt(plaintext, K,  key_len):
 	if not K:
 		return "no key"
 	ciphertext = ""
@@ -34,7 +80,8 @@ def encryptMessage(plaintext, K,  key_len):
 	return ciphertext
 
 
-def encryptBlocks(plaintext, K, key_len, block_size):
+
+def blockEncrypt(plaintext, K, key_len, block_size):
 	letter_pos = 0
 	plaintext_len = len(plaintext)
 	ciphertext = ""
@@ -45,7 +92,7 @@ def encryptBlocks(plaintext, K, key_len, block_size):
 			if letter_pos < plaintext_len:
 				block = block + plaintext[letter_pos]
 				letter_pos += 1
-		cipher_block = encryptMessage(block, K, key_len)
+		cipher_block = simpleEncrypt(block, K, key_len)
 
 		print cipher_block
 		print("------------")
@@ -61,27 +108,41 @@ def generateRandomKey(key_len):
 	return rand_key
 
 
-def firstKeyToKey(first_key, key_len, block_pos, del_pos):
-    block_size = 0
-    new_key = [0]*key_len
-    new_key_pos = 0
- 
-    for i in range(block_pos+1, first_key[block_pos+first_key[block_pos]]):
-        block_size = block_size*10 + first_key[i]
- 
-    print "block size:",block_size
- 
-    for key_pos in range(0, key_len):
-        if key_pos >= del_pos and key_pos <= del_pos + first_key[del_pos]:
-            pass
-        elif key_pos >= block_pos and key_pos <= block_pos + first_key[block_pos]:
-            pass
-        else:
-            new_key[new_key_pos] = first_key[key_pos]
-            new_key_pos += 1
- 
-    
-    return new_key, block_size
+def keyToText(rand_key, key_len):
+	text = ""
+	for i in range(0, key_len):
+		text += str(rand_key[i])
+	return text
+
+# V 4.0
+def randomBlockEncrypt(plaintext, K,  key_len, block_size):
+	
+	print "Key plaintext:", plaintext
+
+
+	letter_pos = 0
+	plaintext_len = len(plaintext)
+	ciphertext = ""
+
+	while letter_pos < plaintext_len:
+		block = ""
+		rand_key = [0] * 100000000
+		for i in range(0, block_size):
+			if letter_pos < plaintext_len:
+				block = block + plaintext[letter_pos]
+				letter_pos += 1
+
+		readKey(generateRandomKey(key_len), rand_key, key_len)
+		block = block + keyToText(rand_key, key_len)
+		cipher_block = simpleEncrypt(block, K, key_len)
+
+		print block
+		print cipher_block
+		print("------------")
+		ciphertext = ciphertext + cipher_block + "|"
+
+	return ciphertext
+
 
 
 
