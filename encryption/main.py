@@ -39,9 +39,12 @@ readKey(first_key,  FK, first_key)
 printK(FK, first_key_len)
  
  
-block_pos = 1
+block_pos = 0
 del_pos = 6
-K = firstKeyToKey(FK, first_key_len, block_pos, del_pos)
+resultsK = firstKeyToKey(FK, first_key_len, block_pos, del_pos)
+K = resultsK[0]
+block_size = resultsK[1]
+print "*************block block_size = ", block_size
 key_len = first_key_len - FK[del_pos]-1 - FK[block_pos] - 1
  
 print "---------------------new key: ----------"
@@ -49,7 +52,7 @@ printK(K, key_len)
  
 print encryptMessage(plaintext, K, key_len)
 
-print "Encrypt Blocks of 3:"
+print "Encrypt Blocks of ", block_size, " :"
 print encryptBlocks(plaintext, K, key_len, block_size)
 
 

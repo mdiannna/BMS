@@ -80,8 +80,10 @@ def firstKeyToKey(first_key, key_len, block_pos, del_pos):
             new_key[new_key_pos] = first_key[key_pos]
             new_key_pos += 1
  
-    # new_key_len = 2
-    return new_key #, new_key_len
+    
+    return new_key, block_size
+
+
 
 # def dencryptMessage(ciphertext, key,  key_len):
 # 	plaintext = ""
