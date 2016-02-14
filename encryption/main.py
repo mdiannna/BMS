@@ -1,4 +1,5 @@
 from encryption import encryptMessage, encryptBlocks, generateRandomKey, firstKeyToKey
+from decryption import decryptMessage
 
 
 
@@ -25,25 +26,33 @@ def printK(K, key_len):
 
 
 # main
+FK = [0] * 100000000
 K = [0] * 100000000
 
-key_len = 7;
-key = 1232222
-plaintext = "AAAAAAAAAAAAAAAA"
+first_key_len = 10
+first_key = 123456389
+plaintext = "----------"
 block_size = 3
 
-readKey(key, K, key_len)
-
+ 
+readKey(first_key,  FK, first_key)
+printK(FK, first_key_len)
+ 
+ 
+block_pos = 1
+del_pos = 6
+K = firstKeyToKey(FK, first_key_len, block_pos, del_pos)
+key_len = first_key_len - FK[del_pos]-1 - FK[block_pos] - 1
+ 
+print "---------------------new key: ----------"
+printK(K, key_len)
+ 
 print encryptMessage(plaintext, K, key_len)
 
-# Encrypt blocks test
 print "Encrypt Blocks of 3:"
 print encryptBlocks(plaintext, K, key_len, block_size)
 
-# FirstKeyToKey experiment
-block_pos = 2
-del_pos = 6
-print "New key:", firstKeyToKey(K, key_len, block_pos, del_pos)
+
 
 '''
 # Random key test

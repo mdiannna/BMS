@@ -62,27 +62,26 @@ def generateRandomKey(key_len):
 
 
 def firstKeyToKey(first_key, key_len, block_pos, del_pos):
-	block_size = 0
-	new_key = [0]*key_len
-	new_key_pos = 0
-
-	for i in range(0, block_pos):
-		block_size = block_size*10 + first_key[i]
-
-	print "block size:",block_size
-
-	for key_pos in range(0, key_len):
-		if key_pos >= del_pos and key_pos <= del_pos + first_key[del_pos]:
-			pass
-		elif key_pos >= block_pos and key_pos <= block_pos + first_key[block_pos]:
-			pass
-		else:
-			new_key[new_key_pos] = first_key[key_pos]
-			new_key_pos += 1
-
-	return new_key	
-
-
+    block_size = 0
+    new_key = [0]*key_len
+    new_key_pos = 0
+ 
+    for i in range(block_pos+1, first_key[block_pos+first_key[block_pos]]):
+        block_size = block_size*10 + first_key[i]
+ 
+    print "block size:",block_size
+ 
+    for key_pos in range(0, key_len):
+        if key_pos >= del_pos and key_pos <= del_pos + first_key[del_pos]:
+            pass
+        elif key_pos >= block_pos and key_pos <= block_pos + first_key[block_pos]:
+            pass
+        else:
+            new_key[new_key_pos] = first_key[key_pos]
+            new_key_pos += 1
+ 
+    # new_key_len = 2
+    return new_key #, new_key_len
 
 # def dencryptMessage(ciphertext, key,  key_len):
 # 	plaintext = ""
