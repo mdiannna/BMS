@@ -33,20 +33,43 @@ def simpleDecrypt(plaintext, K,  key_len):
 	return ciphertext
 
 
+def firstBlockDecrypt(ciphertext, K,  key_len, block_size):
+	block = ""
+
+	cipherblock_len = key_len
+	i = 0
+	cipher_pos = 0
+	while cipher_pos < key_len + 1:
+		if i == key_len:
+			i=0
+		cipherblock_len += K[i]
+		cipher_pos += 1
+		i += 1
+
+	for i in range(0, cipherblock_len):
+		block += ciphertext[i]
+	plaintext = simpleDecrypt(block, K, key_len)
+	return plaintext, cipherblock_len
+
 
 def randomBlockDecrypt(ciphertext, K,  key_len, block_size):
 	
 	letter_pos = 0
 	ciphertext_len = len(ciphertext)
 	plaintext = ""
+	cipherblock_len = 0
 
 	print "Block size =", block_size
 	print "Key len =", key_len
 
-	cipherblock_len = block_size + key_len
+	first_block_decrypt_res = firstBlockDecrypt(ciphertext, K,  key_len, block_size)
+	first_block_plaintext = first_block_decrypt_res[0]
+
+	letter_pos = first_block_decrypt_res[1]
+	cipherblock_len += block_size + key_len
 	i = 0
-	cipher_pos = 0
-	while cipher_pos < block_size + 1 + key_len:
+	cipher_pos = first_block_decrypt_res[1]
+	while cipher_pos < block_size + 1 + key_len + first_block_decrypt_res[1]:
 		if i == key_len:
 			i=0
 		cipherblock_len += K[i]
@@ -73,6 +96,6 @@ def randomBlockDecrypt(ciphertext, K,  key_len, block_size):
 	# 	print("------------")
 	# 	ciphertext = ciphertext + cipher_block + "|"
 
-	return plaintext
+	return first_block_plaintext + plaintext
 
 

@@ -40,7 +40,7 @@ print ciphertext
 print "Decrytpion:"
 print simpleDecrypt(ciphertext, K, key_len)
 
-print "-------------Decrytpion:"
+print "-------------Decryption:"
 print randomBlockDecrypt(ciphertext, K, key_len, block_size)
 
 '''

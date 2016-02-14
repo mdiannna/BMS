@@ -119,14 +119,22 @@ def randomBlockEncrypt(plaintext, K,  key_len, block_size):
 	
 	print "Key plaintext:", plaintext
 
-
 	letter_pos = 0
 	plaintext_len = len(plaintext)
 	ciphertext = ""
 
+	rand_key = [0] * 10000000
+	# generate and encrypt first block - just a random key 
+	readKey(generateRandomKey(key_len), rand_key, key_len)
+	block = keyToText(rand_key, key_len)
+	
+	ciphertext += simpleEncrypt(block, K, key_len)
+
+	print "First block:", block
+
 	while letter_pos < plaintext_len:
 		block = ""
-		rand_key = [0] * 100000000
+		# rand_key = [0] * 100000000
 		for i in range(0, block_size):
 			if letter_pos < plaintext_len:
 				block = block + plaintext[letter_pos]
