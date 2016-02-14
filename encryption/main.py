@@ -1,5 +1,5 @@
 from encryption import readKey, printK, generateRandomKey, firstKeyToKey, simpleEncrypt, blockEncrypt, randomBlockEncrypt
-from decryption import simpleDecrypt
+from decryption import simpleDecrypt, randomBlockDecrypt
 
 
 
@@ -39,6 +39,9 @@ ciphertext = randomBlockEncrypt(plaintext, K, key_len, block_size)
 print ciphertext
 print "Decrytpion:"
 print simpleDecrypt(ciphertext, K, key_len)
+
+print "-------------Decrytpion:"
+print randomBlockDecrypt(ciphertext, K, key_len, block_size)
 
 '''
 # Random key test

@@ -139,7 +139,7 @@ def randomBlockEncrypt(plaintext, K,  key_len, block_size):
 		print block
 		print cipher_block
 		print("------------")
-		ciphertext = ciphertext + cipher_block + "|"
+		ciphertext = ciphertext + cipher_block #+ "|"
 
 	return ciphertext
 
