@@ -1,5 +1,6 @@
 import random
 import string
+from copy import copy
 
 
 
@@ -161,3 +162,47 @@ def randomBlockEncrypt(plaintext, K,  key_len, block_size):
 # 	#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # 	return plaintext
 
+
+
+def randomBlockEncryptV4(plaintext, K,  key_len, block_size):
+	
+	print "Key plaintext:", plaintext
+
+	letter_pos = 0
+	plaintext_len = len(plaintext)
+	ciphertext = ""
+	rand_key = [0]*key_len
+	
+
+	# generate and encrypt first block - just a random key 
+	readKey(generateRandomKey(key_len), rand_key, key_len)
+	block = keyToText(rand_key, key_len)
+
+	prev_rand_key = rand_key
+	
+	ciphertext += simpleEncrypt(block, K, key_len)
+
+	print "First block:", block
+
+	while letter_pos < plaintext_len:
+		block = ""
+		K = copy(prev_rand_key)
+		printK(K, key_len)
+		# rand_key = [0] * 100000000
+		for i in range(0, block_size):
+			if letter_pos < plaintext_len:
+				block = block + plaintext[letter_pos]
+				letter_pos += 1
+
+		readKey(generateRandomKey(key_len), rand_key, key_len)
+		block = block + keyToText(rand_key, key_len)
+		cipher_block = simpleEncrypt(block, K, key_len)
+
+		prev_rand_key = copy(rand_key)
+
+		print block
+		print cipher_block
+		print("------------")
+		ciphertext = ciphertext + cipher_block #+ "|"
+
+	return ciphertext
