@@ -153,6 +153,8 @@ def randomBlockDecryptV4(ciphertext, K,  key_len, block_size):
 	cipherblock_len = 0
 	prev_rand_key = [0] * key_len
 	rand_key = [0] * key_len
+	# last block reached flag
+	last = False
 
 	print "Block size =", block_size
 	print "Key len =", key_len
@@ -173,11 +175,16 @@ def randomBlockDecryptV4(ciphertext, K,  key_len, block_size):
 
 
 	letter_pos = first_cipherblock_len
+
 	
 
 	while letter_pos < ciphertext_len:
 		prev_rand_key = copy(rand_key)
 		cipherblock_len = calcCipherblockLen(block_size, prev_rand_key, key_len)
+		# test if the last block(incomplete) reached
+		if cipherblock_len > ciphertext_len - letter_pos:
+			cipherblock_len = copy(ciphertext_len - letter_pos)
+			last = True
 		print "cipherblock_len = ", cipherblock_len
 		block = ""
 
@@ -188,7 +195,10 @@ def randomBlockDecryptV4(ciphertext, K,  key_len, block_size):
 		print "+++++block_cipher=", block
 		block_plaintext = simpleDecrypt2(block, prev_rand_key, key_len)
 
-		key_text_separation = keyTextSeparation(block_plaintext, block_size)
+		if last:
+			key_text_separation = keyTextSeparation(block_plaintext, len(block_plaintext)-key_len)
+		else:
+			key_text_separation = keyTextSeparation(block_plaintext, block_size)
 		separated_key =  key_text_separation[0]
 		separated_plaintext = key_text_separation[1]
 

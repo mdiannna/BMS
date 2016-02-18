@@ -12,7 +12,7 @@ K = [0] * 100000000
 
 first_key_len = 10
 first_key = 123456389
-plaintext = "dAAAAAAAAAAAA"
+plaintext = "dAAAAAAAAAAAHH"
 block_size = 3
 
  
