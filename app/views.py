@@ -60,6 +60,8 @@ def register():
 	global key
 	global block_size
 	global key_len
+
+	error = False
 	
 	
 	if request.method == 'POST':
@@ -74,35 +76,39 @@ def register():
 		# print "*************block block_size = ", block_size
 		key_len = first_key_len - FK[del_pos]-1 - FK[block_pos] - 1
 
-		plaintext = form.username.data 
-		username = encrypt(plaintext, key, key_len, block_size)
-		# password = generate_password_hash(form.password.data)
-		# print "hash:", password
-		plaintext = form.password.data
-		print "passw:", plaintext
-		password = encrypt(plaintext, key, key_len, block_size)
+		if key_len < 0 or not key:
+			error = True
 
-		plaintext = form.firstname.data
-		firstname = encrypt(plaintext, key, key_len, block_size)
+		else:
+			plaintext = form.username.data 
+			username = encrypt(plaintext, key, key_len, block_size)
+			# password = generate_password_hash(form.password.data)
+			# print "hash:", password
+			plaintext = form.password.data
+			print "passw:", plaintext
+			password = encrypt(plaintext, key, key_len, block_size)
 
-		plaintext = form.lastname.data
-		lastname = encrypt(plaintext, key, key_len, block_size)
-		
+			plaintext = form.firstname.data
+			firstname = encrypt(plaintext, key, key_len, block_size)
 
-		plaintext = str(form.tel.data)
-		tel = encrypt(plaintext, key, key_len, block_size)
+			plaintext = form.lastname.data
+			lastname = encrypt(plaintext, key, key_len, block_size)
+			
 
-		user = UserData(username=username,
-			password=password,
-			firstname=firstname,
-			lastname=lastname,
-			tel=tel)
-		db.session.add(user)
-		db.session.commit()
-		# key = ""
-		return redirect('/')
+			plaintext = str(form.tel.data)
+			tel = encrypt(plaintext, key, key_len, block_size)
+
+			user = UserData(username=username,
+				password=password,
+				firstname=firstname,
+				lastname=lastname,
+				tel=tel)
+			db.session.add(user)
+			db.session.commit()
+			# key = ""
+			return redirect('/')
 	
-	return render_template("register.html", form=form)
+	return render_template("register.html", form=form, error = error)
 
 
 @app.route('/adddata', methods=['GET', 'POST'])
@@ -184,19 +190,19 @@ def viewalldata():
 @login_required
 def viewuserdata():
 	global key
-	global block_size
-	global key_len
-	
+	print "key=", key
+
 	user_id = current_user.get_id()
 
 	# key = request.args['key']
 	print "key=", key
 	encodedata = UserData.query.get(user_id)
+	print "--------------user_id=", user_id
 	print "encodedata=", encodedata
-	decodedata = copy.deepcopy(encodedata)
-	decodeItem(decodedata, key)
+	item = copy.deepcopy(encodedata)
+	decodeItem(item, key)
 	
-	return render_template("viewuserdata.html", encodedata=encodedata, item=decodedata)
+	return render_template("viewuserdata.html", encodedata=encodedata, item=item)
 
 
 

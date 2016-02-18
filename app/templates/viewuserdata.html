@@ -10,7 +10,7 @@
 	<div class="row">
 		<div class="col-md-6 col-md-offset-0">
 			<H1 align="center">View decoded data</H1>	
-			{% if not decodedata %}
+			{% if not item %}
 				<p>No data available. </p>
 			{% else %}
 					<p>id: {{item.id}}</p>
@@ -27,11 +27,11 @@
 			{% if not encodedata %}
 				<p>No data available. </p>
 			{% else %}
-					<p>id: {{item.id}}</p>
-					<p> firstname: {{item.firstname}}</p>
-					<p> lastname: {{item.lastname}}</p>
-					<p> tel: {{item.tel}}</p>
-					<p> secret: {{item.secret}}</p>
+					<p>id: {{encodedata.id}}</p>
+					<p> firstname: {{encodedata.firstname}}</p>
+					<p> lastname: {{encodedata.lastname}}</p>
+					<p> tel: {{encodedata.tel}}</p>
+					<p> secret: {{encodedata.secret}}</p>
 					<hr>
 			{% endif %}
 
