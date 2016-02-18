@@ -6,10 +6,26 @@ from app.models import UserData, PersonalData
 from flask.ext.login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
+from encryption.encryption import simpleEncrypt, blockEncrypt, randomBlockEncrypt, randomBlockEncryptV4
+from encryption.decryption import simpleDecrypt2, randomBlockDecrypt, randomBlockDecryptV4
+from encryption.keylib import readKey, printK, firstKeyToKey, keyTextSeparation
+
+
+
 import random
 import string
 import copy
+
 # !!!!!!!!!!!! temporary key for each user!!!!!!!!!
+
+# temporary using as global variables
+block_pos = 0
+del_pos = 2
+block_size = 0
+key_len = 0
+
+key = [0] * 10000
 
 @login_manager.user_loader
 def load_user(userid):
@@ -17,86 +33,21 @@ def load_user(userid):
 	return user
 
 
-def encodeData(data, key):
-	if key == "" or not key:
-		return "no key"
-	final_string = ""
-	for idx, i in enumerate(key):
-		# print i
-		# print str(data[idx])
-		final_string += data[idx]
-		# print i
-		i2 = int(i)
-		# print i2
-		for k in range(0, i2):
-			extraCh = random.choice(string.ascii_letters)
-			final_string = final_string + str(extraCh)
-	# final_string = ''.join(final_string)
-	return final_string
-
-def encodeDataInt(data, key):
-	if key == "" or not key:
-		return "no key"
-	final_string = ""
-	for idx, i in enumerate(key):
-		# print i
-		# print str(data[idx])
-		final_string += data[idx]
-		# print i
-		i2 = int(i)
-		# print i2
-		for k in range(0, i2):
-			extraCh = str(random.randint(0, 9))
-			final_string = final_string + str(extraCh)
-	# final_string = ''.join(final_string)
-	return final_string
-
-
-def decodeData(data, key):
-	if key == "" or not key:
-		return "no key"
-	final_string = ""
-	k = 0
-	remained_to_skip = 0
-
-	j = 0
-	for char in data:
-			if k == remained_to_skip:
-				final_string += char
-				# This is a temporary solution
-				if j == len(key):
-					return final_string
-				remained_to_skip = int(key[j])
-				j += 1
-			else:
-				remained_to_skip = remained_to_skip - 1
-			# print "skip:"
-			# print remained_to_skip
-	return final_string
-
-
-
-# Function not finished!!
-def passToKey(password):
-	return "32345"
-
 # logintrue = False
-key = "32345"
+# key = "32345"
 
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-# 	global key
-# 	form = LoginForm(request.form, csrf_enabled=True)
-# 	if request.method == "POST":
-# 		# if form.validate_on_submit():
-# 			key = passToKey(form.password.data)
-# 			print "key=" + key
-# 			message = form.username.data
-# 			print encodeData(message, key)
-# 			print decodeData(message, key)
-# 			global logintrue
-# 			logintrue = True
-# 	return render_template("login.html", form=form)
+def encrypt(plaintext, key, key_len, block_size):
+	return randomBlockEncryptV4(plaintext, key, key_len, block_size)
+
+def decrypt(ciphertext, key, key_len, block_size):
+	res = 0
+	try:
+		res = randomBlockDecryptV4(ciphertext, key, key_len, block_size)	
+	except:
+		pass
+	return res
+
+
 
 @app.route('/')
 def index():
@@ -105,19 +56,41 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	form = RegisterForm(request.form, csrf_enabled=True)
+	FK = [0] * 10000
+	global key
+	global block_size
+	global key_len
+	
 	
 	if request.method == 'POST':
-	
-		key = passToKey(form.key.data)
-		username=encodeData(form.username.data, key)
+		
+		first_key = str(form.key.data)
+		first_key_len = len(first_key)
+		readKey(int(first_key),  FK, first_key_len)
+
+		resultsK = firstKeyToKey(FK, first_key_len, block_pos, del_pos)
+		key  = resultsK[0]
+		block_size = resultsK[1]
+		# print "*************block block_size = ", block_size
+		key_len = first_key_len - FK[del_pos]-1 - FK[block_pos] - 1
+
+		plaintext = form.username.data 
+		username = encrypt(plaintext, key, key_len, block_size)
 		# password = generate_password_hash(form.password.data)
 		# print "hash:", password
-		password=encodeData(form.password.data, key)
-		print "passw:", password
-		firstname=encodeData(form.firstname.data, key)
-		lastname=encodeData(form.lastname.data, key)
-		# tel=encodeDataInt(form.tel.data, key)
-		tel=encodeDataInt(form.tel.data, key)
+		plaintext = form.password.data
+		print "passw:", plaintext
+		password = encrypt(plaintext, key, key_len, block_size)
+
+		plaintext = form.firstname.data
+		firstname = encrypt(plaintext, key, key_len, block_size)
+
+		plaintext = form.lastname.data
+		lastname = encrypt(plaintext, key, key_len, block_size)
+		
+
+		plaintext = str(form.tel.data)
+		tel = encrypt(plaintext, key, key_len, block_size)
 
 		user = UserData(username=username,
 			password=password,
@@ -126,7 +99,7 @@ def register():
 			tel=tel)
 		db.session.add(user)
 		db.session.commit()
-		key = ""
+		# key = ""
 		return redirect('/')
 	
 	return render_template("register.html", form=form)
@@ -135,12 +108,34 @@ def register():
 @app.route('/adddata', methods=['GET', 'POST'])
 @login_required
 def adddata():
+	global key
+	global block_size
+	global key_len
+
+	FK = [0] * 10000
+
 	form = AddDataForm(request.form, csrf_enabled=True)
+	print "-----------key=", key
+	
 	if request.method == "POST":
-		global key
-		secret=encodeData(form.secret.data, key)
-		photo=encodeData(form.photo.data, key)
-		video=encodeData(form.video.data, key)
+
+		first_key = str(form.key.data)
+		first_key_len = len(first_key)
+		readKey(int(first_key),  FK, first_key_len)
+
+		resultsK = firstKeyToKey(FK, first_key_len, block_pos, del_pos)
+		key  = resultsK[0]
+		block_size = resultsK[1]
+		# print "*************block block_size = ", block_size
+		key_len = first_key_len - FK[del_pos]-1 - FK[block_pos] - 1
+		print "-----------key=", key
+	
+		plaintext = form.secret.data
+		secret = encrypt(plaintext, key, key_len, block_size)
+		plaintext = form.photo.data
+		photo = encrypt(plaintext, key, key_len, block_size)
+		plaintext = form.video.data
+		video = encrypt(plaintext, key, key_len, block_size)
 
 		# username = "nick"
 		# password = "password"
@@ -152,36 +147,66 @@ def adddata():
 			user_id=user_id)
 		db.session.add(data)
 		db.session.commit()
-		return redirect('/viewdata')
+		return redirect('/viewalldata')
 
 	return render_template("adddata.html", form=form)
 
 
 
 def decodeItem(item, key):
-	item.firstname = decodeData(str(item.firstname), key)
-	item.lastname = decodeData(item.lastname, key)
-	item.tel = decodeData(item.tel, key)
-	item.username = decodeData(item.username, key)
+	ciphertext = item.firstname
+	item.firstname = decrypt(ciphertext, key, key_len, block_size)
+	ciphertext = item.lastname
+	item.lastname = decrypt(ciphertext, key, key_len, block_size)
+	ciphertext = item.tel
+	item.tel = decrypt(ciphertext, key, key_len, block_size)
+	ciphertext = item.username
+	item.username = decrypt(ciphertext, key, key_len, block_size)
 	# item.secret = decodeData(item.secret, key)
 
 
-@app.route('/viewdata', methods=['GET', 'POST'])
+@app.route('/viewalldata', methods=['GET', 'POST'])
 @login_required
-def viewdata():
+def viewalldata():
+	global key
+
+	# key = request.args['key']
+	print "key=", key
 	encodedata = UserData.query.all()
 	decodedata = copy.deepcopy(encodedata)
-	for item in decodedata:
-		global key
-		print key
+	for item in decodedata:	
+		print '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
 		decodeItem(item, key)
-	return render_template("viewdata.html", encodedata=encodedata, decodedata=decodedata)
+	return render_template("viewalldata.html", encodedata=encodedata, decodedata=decodedata)
+
+
+@app.route('/viewuserdata', methods=['GET', 'POST'])
+@login_required
+def viewuserdata():
+	global key
+	global block_size
+	global key_len
+	
+	user_id = current_user.get_id()
+
+	# key = request.args['key']
+	print "key=", key
+	encodedata = UserData.query.get(user_id)
+	print "encodedata=", encodedata
+	decodedata = copy.deepcopy(encodedata)
+	decodeItem(decodedata, key)
+	
+	return render_template("viewuserdata.html", encodedata=encodedata, item=decodedata)
 
 
 
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
 	global key
+	global block_size
+	global key_len
+	
+	FK = [0] * 10000
 	form = LoginForm(request.form, csrf_enabled=True)
 	error = ''
 	print "signin"
@@ -192,6 +217,20 @@ def login():
 		# password = form.password.data
 		# password = encodeData(raw_password, key)
 		# password = generate_password_hash(form.password.data)
+		first_key = form.username.data
+		print "first_key:", first_key
+
+		first_key = str(form.key.data)
+		first_key_len = len(first_key)
+		readKey(int(first_key),  FK, first_key_len)
+
+		resultsK = firstKeyToKey(FK, first_key_len, block_pos, del_pos)
+		key  = resultsK[0]
+		block_size = resultsK[1]
+		# print "*************block block_size = ", block_size
+		key_len = first_key_len - FK[del_pos]-1 - FK[block_pos] - 1
+
+
 		username = form.username.data
 		print "username:", username
 		password = form.password.data
@@ -200,15 +239,21 @@ def login():
 		users = UserData.query.all()
 		print "########"
 		for user in users:
-			user_username = decodeData(user.username , key)
-			user_password = decodeData(user.password, key)
-			print "user_name:", user_username
-			print "user_pass:", user_password
+			ciphertext = user.username
+			try:
+				user_username = decrypt(ciphertext, key, key_len, block_size)
+				ciphertext = user.password
+				user_password = decrypt(ciphertext, key, key_len, block_size)
+				print "user_name:", user_username
+				print "user_pass:", user_password
+			except:
+				user_username = None
+				user_password = None
 			if username == user_username and password == user_password:
 				# if check_password_hash(user_password, password):
 					login_user(user)
 					print 'logged in successfully'
-					return redirect('/viewdata')
+					return redirect('/viewuserdata')
 					break
 		error = "login unsuccesful"
 		print error

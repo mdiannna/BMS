@@ -6,6 +6,7 @@ from models import  UserData
 
 
 class LoginForm(Form):
+	key = TextField('Key:')
 	username = TextField('Username:')
 	password = PasswordField('Password:')
 	submit = SubmitField('OK')
@@ -16,7 +17,7 @@ class RegisterForm(Form):
 	username = TextField('Username:')
 	password = PasswordField('Password:')
 	firstname = TextField('First name:')
-	lastname = TextField('Last naem:')
+	lastname = TextField('Last name:')
 	tel = TextField('Tel. nr:')
 	submit = SubmitField('OK')
 
@@ -25,9 +26,10 @@ class AddDataForm(Form):
 	# firstname = TextField('Name:')
 	# lastname = TextField('Last name:')
 	# tel = TextField('Telephone:')
+	key = TextField('Key:')
 	secret = TextField('What is your secret?')
-	photo = TextField('Link to photo:')
-	video = TextField('Link to video:')
+	photo = TextField('ID:')
+	video = TextField('Other data:')
 	submit = SubmitField('OK')
 
 
