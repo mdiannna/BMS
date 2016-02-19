@@ -28,8 +28,8 @@ class AddDataForm(Form):
 	# tel = TextField('Telephone:')
 	key = TextField('Key:')
 	secret = TextField('What is your secret?')
-	photo = TextField('ID:')
-	video = TextField('Other data:')
+	nr_passport = TextField('ID:')
+	color = TextField('Culoarea preferata:')
 	submit = SubmitField('OK')
 
 

@@ -17,9 +17,19 @@
 					<p> firstname: {{item.firstname}}</p>
 					<p> lastname: {{item.lastname}}</p>
 					<p> tel: {{item.tel}}</p>
-					<p> secrets of the user: Coming soon...</p>
-					<hr>
+					
 			{% endif %}
+			{% if not decodedPersonalData %}
+				<p>No other personal data available. </p>
+			{% else %}
+			{% for item in decodedPersonalData %}
+					<p> secret: {{item.secret}}</p>
+					<p> nr_passport: {{item.nr_passport}}</p>
+					<p> color: {{item.color}}</p>
+					
+			{% endfor %}
+			{% endif %}
+			<hr>
 		</div>
 
 		<div class="col-md-6 col-md-offset-0">
@@ -31,10 +41,19 @@
 					<p> firstname: {{encodedata.firstname}}</p>
 					<p> lastname: {{encodedata.lastname}}</p>
 					<p> tel: {{encodedata.tel}}</p>
-					<p> secret: {{encodedata.secret}}</p>
-					<hr>
 			{% endif %}
 
+			{% if not encodedPersonalData %}
+				<p>No other personal data available. </p>
+			{% else %}
+			{% for item in encodedPersonalData %}
+					<p> secret: {{item.secret}}</p>
+					<p> nr_passport: {{item.nr_passport}}</p>
+					<p> color: {{item.color}}</p>
+					
+			{% endfor %}
+			{% endif %}
+			<hr>
 		</div>
 	</div>
 </form>

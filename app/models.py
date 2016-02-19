@@ -30,5 +30,5 @@ class PersonalData(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	user_id = db.Column(db.Integer, db.ForeignKey('confidential.id'))
 	secret = db.Column(db.String(255))
-	photo = db.Column(db.String(255))
-	video = db.Column(db.String(255))
+	nr_passport = db.Column(db.String(255))
+	color = db.Column(db.String(255))

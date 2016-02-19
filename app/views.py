@@ -138,22 +138,22 @@ def adddata():
 	
 		plaintext = form.secret.data
 		secret = encrypt(plaintext, key, key_len, block_size)
-		plaintext = form.photo.data
-		photo = encrypt(plaintext, key, key_len, block_size)
-		plaintext = form.video.data
-		video = encrypt(plaintext, key, key_len, block_size)
+		plaintext = form.nr_passport.data
+		nr_passport = encrypt(plaintext, key, key_len, block_size)
+		plaintext = form.color.data
+		color = encrypt(plaintext, key, key_len, block_size)
 
 		# username = "nick"
 		# password = "password"
 		# password = generate_password_hash(password)
 		user_id = current_user.get_id()
 		data = PersonalData(secret=secret, 
-			photo=photo,
-			video=video, 
+			nr_passport=nr_passport,
+			color=color,
 			user_id=user_id)
 		db.session.add(data)
 		db.session.commit()
-		return redirect('/viewalldata')
+		return redirect('/viewuserdata')
 
 	return render_template("adddata.html", form=form)
 
@@ -170,6 +170,13 @@ def decodeItem(item, key):
 	item.username = decrypt(ciphertext, key, key_len, block_size)
 	# item.secret = decodeData(item.secret, key)
 
+def decodePersonalData(item, key):
+	ciphertext = item.secret
+	item.secret = decrypt(ciphertext, key, key_len, block_size)
+	ciphertext = item.nr_passport
+	item.nr_passport = decrypt(ciphertext, key, key_len, block_size)
+	ciphertext = item.color
+	item.color = decrypt(ciphertext, key, key_len, block_size)
 
 @app.route('/viewalldata', methods=['GET', 'POST'])
 @login_required
@@ -201,8 +208,17 @@ def viewuserdata():
 	print "encodedata=", encodedata
 	item = copy.deepcopy(encodedata)
 	decodeItem(item, key)
+
+
+	encodedPersonalData = PersonalData.query.filter_by(user_id=user_id).all()
+	decodedPersonalData  = copy.deepcopy(encodedPersonalData )
+	for item in decodedPersonalData:
+		decodePersonalData(item , key)
+	# personalData = PersonalData.query.get()
+
 	
-	return render_template("viewuserdata.html", encodedata=encodedata, item=item)
+	return render_template("viewuserdata.html", encodedata=encodedata, item=item, 
+			encodedPersonalData=encodedPersonalData, decodedPersonalData=decodedPersonalData )
 
 
 
