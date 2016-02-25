@@ -6,61 +6,46 @@ from keylib import readKey, printK, firstKeyToKey, keyTextSeparation
 
 
 
-# main
+# First Key initialization - the initial key (containing block size parameter and masking the real key length)
 FK = [0] * 100000000
+# Real Key initialization
 K = [0] * 100000000
 
+# The length of the first key
 first_key_len = 10
+# The first key expressed as integer
 first_key = 123456389
+# The message to be encrypted
 plaintext = "dAAAAAAAAAAAHH"
-block_size = 3
+# ???????????????
+# block_size = 3
 
- 
+# Function that transforms the key from integer to array of digits 
 readKey(first_key,  FK, first_key_len)
-# printK(FK, first_key_len)
  
- 
+# block_pos - block_size parameter position in the key 
 block_pos = 0
+# del_pos - a parameter that specifies how many of the following bits should be deleted from the key
 del_pos = 6
+
+# Function that transforms first(initial key) to real key used for the first block
 resultsK = firstKeyToKey(FK, first_key_len, block_pos, del_pos)
+# Real Key
 K = resultsK[0]
+# Obtaining block size
 block_size = resultsK[1]
-# print "*************block block_size = ", block_size
+
+# Calculating real length of the key
 key_len = first_key_len - FK[del_pos]-1 - FK[block_pos] - 1
  
-# print "---------------------new key: ----------"
-# printK(K, key_len)
- 
-# print simpleEncrypt(plaintext, K, key_len)
 
-# print "Encrypt Blocks of ", block_size, " :"
-# print blockEncrypt(plaintext, K, key_len, block_size)
-
+# Encryption
 print "-------------------------------"
-print "Random Encrypt:"
+print "Random Encryption V 4.2:"
 ciphertext = randomBlockEncryptV4(plaintext, K, key_len, block_size)
 print ciphertext
-# print "simple Decryption:"
-# print simpleDecrypt2(ciphertext, K, key_len)
-key = 12333333
-first_key_len = 8
-block_pos = 0
-del_pos = 2
-readKey(key, FK, first_key_len)
-resultsK = firstKeyToKey(FK, first_key_len, block_pos, del_pos)
-K = resultsK[0]
-block_size = resultsK[1]
-# print "*************block block_size = ", block_size
-key_len = first_key_len - FK[del_pos]-1 - FK[block_pos] - 1
 
-print "Key=", K
-
-ciphertext = "UJk7ggW9efXkaVsJDmDykVQjqRgsilPeapRS9yaAInaMna5vJnSidbcfbYVOlzOaEuvoGnnfLPiBigy1lOOgX6qQSVelnKBhaMsFtJa6F3hpuUFO"
-
+# Decryption
 print "-------------Decryption:"
 print ciphertext
 print randomBlockDecryptV4(ciphertext, K, key_len, block_size)
-
-
-# readKey(keySeparation("------123", 6), K, 3)
-# printK(K, key_len)

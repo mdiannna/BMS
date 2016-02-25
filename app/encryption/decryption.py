@@ -228,6 +228,9 @@ def randomBlockDecryptV4(ciphertext, K,  key_len, block_size):
 	# 	print cipher_block
 	# 	print("------------")
 	# 	ciphertext = ciphertext + cipher_block + "|"
+	
+	print ""
+	print "_______----_______----____Decryption Result:________------"
 
 	return plaintext
 

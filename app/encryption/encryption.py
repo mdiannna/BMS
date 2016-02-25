@@ -206,4 +206,6 @@ def randomBlockEncryptV4(plaintext, K,  key_len, block_size):
 		print("------------")
 		ciphertext = ciphertext + cipher_block #+ "|"
 
+	print ""
+	print "_______----_______----____Encryption Result:________------"
 	return ciphertext
