@@ -1,0 +1,7 @@
+Test nr: 11
+Message: ABCDEFghijSSdjkf 
+Message length: 16 
+Iterations: 1
+----------------------------0.0813760757446
+Average:
+0.0813760757446

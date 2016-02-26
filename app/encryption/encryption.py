@@ -34,7 +34,7 @@ def firstKeyToKey(first_key, key_len, block_pos, del_pos):
     for i in range(block_pos+1, first_key[block_pos+first_key[block_pos]]):
         block_size = block_size*10 + first_key[i]
  
-    print "block size:",block_size
+    ### print "block size:",block_size
  
     for key_pos in range(0, key_len):
         if key_pos >= del_pos and key_pos <= del_pos + first_key[del_pos]:
@@ -57,8 +57,8 @@ def simpleEncrypt(plaintext, K,  key_len):
 	key_pos = 0
 	plaintext_len = len(plaintext)
 
-	print " plaintext_len=", plaintext_len
-	print "key_len=", key_len
+	### print " plaintext_len=", plaintext_len
+	### print "key_len=", key_len
 
 	while letter_pos < plaintext_len:
 		
@@ -95,8 +95,8 @@ def blockEncrypt(plaintext, K, key_len, block_size):
 				letter_pos += 1
 		cipher_block = simpleEncrypt(block, K, key_len)
 
-		print cipher_block
-		print("------------")
+		### print cipher_block
+		### print("------------")
 		ciphertext = ciphertext + cipher_block + "|"
 
 	return ciphertext
@@ -118,7 +118,7 @@ def keyToText(rand_key, key_len):
 # V 4.0
 def randomBlockEncrypt(plaintext, K,  key_len, block_size):
 	
-	print "Key plaintext:", plaintext
+	### print "Key plaintext:", plaintext
 
 	letter_pos = 0
 	plaintext_len = len(plaintext)
@@ -131,7 +131,7 @@ def randomBlockEncrypt(plaintext, K,  key_len, block_size):
 	
 	ciphertext += simpleEncrypt(block, K, key_len)
 
-	print "First block:", block
+	### print "First block:", block
 
 	while letter_pos < plaintext_len:
 		block = ""
@@ -145,9 +145,9 @@ def randomBlockEncrypt(plaintext, K,  key_len, block_size):
 		block = block + keyToText(rand_key, key_len)
 		cipher_block = simpleEncrypt(block, K, key_len)
 
-		print block
-		print cipher_block
-		print("------------")
+		### print block
+		### print cipher_block
+		### print("------------")
 		ciphertext = ciphertext + cipher_block #+ "|"
 
 	return ciphertext
@@ -167,7 +167,7 @@ def randomBlockEncrypt(plaintext, K,  key_len, block_size):
 def randomBlockEncryptV4(plaintext, K,  key_len, block_size):
 	if not K:
 		return "no key"
-	print "Key plaintext:", plaintext
+	### print "Key plaintext:", plaintext
 
 	letter_pos = 0
 	plaintext_len = len(plaintext)
@@ -183,12 +183,12 @@ def randomBlockEncryptV4(plaintext, K,  key_len, block_size):
 	
 	ciphertext += simpleEncrypt(block, K, key_len)
 
-	print "First block:", block
+	### print "First block:", block
 
 	while letter_pos < plaintext_len:
 		block = ""
 		K = copy(prev_rand_key)
-		printK(K, key_len)
+		### printK(K, key_len)
 		# rand_key = [0] * 100000000
 		for i in range(0, block_size):
 			if letter_pos < plaintext_len:
@@ -201,11 +201,11 @@ def randomBlockEncryptV4(plaintext, K,  key_len, block_size):
 
 		prev_rand_key = copy(rand_key)
 
-		print block
-		print cipher_block
-		print("------------")
+		### print block
+		### print cipher_block
+		### print("------------")
 		ciphertext = ciphertext + cipher_block #+ "|"
 
-	print ""
-	print "_______----_______----____Encryption Result:________------"
+	### print ""
+	### print "_______----_______----____Encryption Result:________------"
 	return ciphertext

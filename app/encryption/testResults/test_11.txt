@@ -1,0 +1,10 @@
+Test nr: 11
+Message: ABCDEFghijSSdjkf 
+Message length: 16 
+Iterations: 1
+--------------------------------------------Iteration 1----------------------
+--- Encryption execution time: 0.0813760757446 seconds ---
+--- Decryption execution time: 0.199783086777 seconds ---
+-------------------------------------------
+--- Encryption average time:0.0813760757446
+--- Decryption average time:0.199783086777

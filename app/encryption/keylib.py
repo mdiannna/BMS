@@ -29,7 +29,7 @@ def firstKeyToKey(first_key, key_len, block_pos, del_pos):
     for i in range(block_pos+1, first_key[block_pos+first_key[block_pos]]):
         block_size = block_size*10 + first_key[i]
  
-    print "block size:",block_size
+    ### print "block size:",block_size
  
     for key_pos in range(0, key_len):
         if key_pos >= del_pos and key_pos <= del_pos + first_key[del_pos]:

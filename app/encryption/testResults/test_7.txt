@@ -1,0 +1,206 @@
+Test nr: 7
+Message: ABCDEFghijSSdjkfjdkljkjdhSHJpouindjhfjiokjndmkIUnsijNdKJjdsujmjdijijkudinsKJJNJSADSDSAfloikdmfkmdnJDABCDEFghijSSdjkfjdkljkjdhSHJpouindjhfjiokjndmkIUnsijNdKJjdsujmjdijijkudinsKJJNJSADSDSAfloikdmfkmdnJD 
+Message length: 200 
+Iterations: 50
+--------------------------------------------Iteration 1----------------------
+--- Encryption execution time: 0.00880098342896 seconds ---
+--- Decryption execution time: 0.00337910652161 seconds ---
+-------------------------------------------
+----------------Iteration 2----------------------
+--- Encryption execution time: 0.00898313522339 seconds ---
+--- Decryption execution time: 0.00335097312927 seconds ---
+-------------------------------------------
+----------------Iteration 3----------------------
+--- Encryption execution time: 0.00850987434387 seconds ---
+--- Decryption execution time: 0.00350189208984 seconds ---
+-------------------------------------------
+----------------Iteration 4----------------------
+--- Encryption execution time: 0.00867390632629 seconds ---
+--- Decryption execution time: 0.00338411331177 seconds ---
+-------------------------------------------
+----------------Iteration 5----------------------
+--- Encryption execution time: 0.00875687599182 seconds ---
+--- Decryption execution time: 0.00345301628113 seconds ---
+-------------------------------------------
+----------------Iteration 6----------------------
+--- Encryption execution time: 0.00861406326294 seconds ---
+--- Decryption execution time: 0.00336313247681 seconds ---
+-------------------------------------------
+----------------Iteration 7----------------------
+--- Encryption execution time: 0.00888109207153 seconds ---
+--- Decryption execution time: 0.00338101387024 seconds ---
+-------------------------------------------
+----------------Iteration 8----------------------
+--- Encryption execution time: 0.00851607322693 seconds ---
+--- Decryption execution time: 0.00333905220032 seconds ---
+-------------------------------------------
+----------------Iteration 9----------------------
+--- Encryption execution time: 0.00856995582581 seconds ---
+--- Decryption execution time: 0.00339102745056 seconds ---
+-------------------------------------------
+----------------Iteration 10----------------------
+--- Encryption execution time: 0.00851702690125 seconds ---
+--- Decryption execution time: 0.00331997871399 seconds ---
+-------------------------------------------
+----------------Iteration 11----------------------
+--- Encryption execution time: 0.00839400291443 seconds ---
+--- Decryption execution time: 0.00335478782654 seconds ---
+-------------------------------------------
+----------------Iteration 12----------------------
+--- Encryption execution time: 0.0086829662323 seconds ---
+--- Decryption execution time: 0.00334596633911 seconds ---
+-------------------------------------------
+----------------Iteration 13----------------------
+--- Encryption execution time: 0.0086350440979 seconds ---
+--- Decryption execution time: 0.00336813926697 seconds ---
+-------------------------------------------
+----------------Iteration 14----------------------
+--- Encryption execution time: 0.00881004333496 seconds ---
+--- Decryption execution time: 0.00343489646912 seconds ---
+-------------------------------------------
+----------------Iteration 15----------------------
+--- Encryption execution time: 0.00876307487488 seconds ---
+--- Decryption execution time: 0.00342702865601 seconds ---
+-------------------------------------------
+----------------Iteration 16----------------------
+--- Encryption execution time: 0.00853204727173 seconds ---
+--- Decryption execution time: 0.00338006019592 seconds ---
+-------------------------------------------
+----------------Iteration 17----------------------
+--- Encryption execution time: 0.00850200653076 seconds ---
+--- Decryption execution time: 0.00332808494568 seconds ---
+-------------------------------------------
+----------------Iteration 18----------------------
+--- Encryption execution time: 0.00849604606628 seconds ---
+--- Decryption execution time: 0.00332689285278 seconds ---
+-------------------------------------------
+----------------Iteration 19----------------------
+--- Encryption execution time: 0.00866508483887 seconds ---
+--- Decryption execution time: 0.00339293479919 seconds ---
+-------------------------------------------
+----------------Iteration 20----------------------
+--- Encryption execution time: 0.0085768699646 seconds ---
+--- Decryption execution time: 0.00345611572266 seconds ---
+-------------------------------------------
+----------------Iteration 21----------------------
+--- Encryption execution time: 0.00850701332092 seconds ---
+--- Decryption execution time: 0.00335311889648 seconds ---
+-------------------------------------------
+----------------Iteration 22----------------------
+--- Encryption execution time: 0.0087571144104 seconds ---
+--- Decryption execution time: 0.003497838974 seconds ---
+-------------------------------------------
+----------------Iteration 23----------------------
+--- Encryption execution time: 0.00864386558533 seconds ---
+--- Decryption execution time: 0.00333189964294 seconds ---
+-------------------------------------------
+----------------Iteration 24----------------------
+--- Encryption execution time: 0.00867199897766 seconds ---
+--- Decryption execution time: 0.00337886810303 seconds ---
+-------------------------------------------
+----------------Iteration 25----------------------
+--- Encryption execution time: 0.00864386558533 seconds ---
+--- Decryption execution time: 0.00336599349976 seconds ---
+-------------------------------------------
+----------------Iteration 26----------------------
+--- Encryption execution time: 0.00838017463684 seconds ---
+--- Decryption execution time: 0.0033221244812 seconds ---
+-------------------------------------------
+----------------Iteration 27----------------------
+--- Encryption execution time: 0.00855994224548 seconds ---
+--- Decryption execution time: 0.00335907936096 seconds ---
+-------------------------------------------
+----------------Iteration 28----------------------
+--- Encryption execution time: 0.00861096382141 seconds ---
+--- Decryption execution time: 0.00335502624512 seconds ---
+-------------------------------------------
+----------------Iteration 29----------------------
+--- Encryption execution time: 0.00867581367493 seconds ---
+--- Decryption execution time: 0.00342893600464 seconds ---
+-------------------------------------------
+----------------Iteration 30----------------------
+--- Encryption execution time: 0.00850987434387 seconds ---
+--- Decryption execution time: 0.00331497192383 seconds ---
+-------------------------------------------
+----------------Iteration 31----------------------
+--- Encryption execution time: 0.00862288475037 seconds ---
+--- Decryption execution time: 0.00343990325928 seconds ---
+-------------------------------------------
+----------------Iteration 32----------------------
+--- Encryption execution time: 0.00891304016113 seconds ---
+--- Decryption execution time: 0.00349402427673 seconds ---
+-------------------------------------------
+----------------Iteration 33----------------------
+--- Encryption execution time: 0.00842714309692 seconds ---
+--- Decryption execution time: 0.00330090522766 seconds ---
+-------------------------------------------
+----------------Iteration 34----------------------
+--- Encryption execution time: 0.00869202613831 seconds ---
+--- Decryption execution time: 0.00342893600464 seconds ---
+-------------------------------------------
+----------------Iteration 35----------------------
+--- Encryption execution time: 0.00868201255798 seconds ---
+--- Decryption execution time: 0.00334787368774 seconds ---
+-------------------------------------------
+----------------Iteration 36----------------------
+--- Encryption execution time: 0.00860905647278 seconds ---
+--- Decryption execution time: 0.00333714485168 seconds ---
+-------------------------------------------
+----------------Iteration 37----------------------
+--- Encryption execution time: 0.00890398025513 seconds ---
+--- Decryption execution time: 0.00347590446472 seconds ---
+-------------------------------------------
+----------------Iteration 38----------------------
+--- Encryption execution time: 0.00888800621033 seconds ---
+--- Decryption execution time: 0.00345516204834 seconds ---
+-------------------------------------------
+----------------Iteration 39----------------------
+--- Encryption execution time: 0.00873613357544 seconds ---
+--- Decryption execution time: 0.00357294082642 seconds ---
+-------------------------------------------
+----------------Iteration 40----------------------
+--- Encryption execution time: 0.00853896141052 seconds ---
+--- Decryption execution time: 0.00331592559814 seconds ---
+-------------------------------------------
+----------------Iteration 41----------------------
+--- Encryption execution time: 0.00864005088806 seconds ---
+--- Decryption execution time: 0.00335597991943 seconds ---
+-------------------------------------------
+----------------Iteration 42----------------------
+--- Encryption execution time: 0.00864315032959 seconds ---
+--- Decryption execution time: 0.00338315963745 seconds ---
+-------------------------------------------
+----------------Iteration 43----------------------
+--- Encryption execution time: 0.00866484642029 seconds ---
+--- Decryption execution time: 0.00336503982544 seconds ---
+-------------------------------------------
+----------------Iteration 44----------------------
+--- Encryption execution time: 0.00877594947815 seconds ---
+--- Decryption execution time: 0.00344395637512 seconds ---
+-------------------------------------------
+----------------Iteration 45----------------------
+--- Encryption execution time: 0.00860714912415 seconds ---
+--- Decryption execution time: 0.00334787368774 seconds ---
+-------------------------------------------
+----------------Iteration 46----------------------
+--- Encryption execution time: 0.00858592987061 seconds ---
+--- Decryption execution time: 0.00337409973145 seconds ---
+-------------------------------------------
+----------------Iteration 47----------------------
+--- Encryption execution time: 0.00829696655273 seconds ---
+--- Decryption execution time: 0.00334000587463 seconds ---
+-------------------------------------------
+----------------Iteration 48----------------------
+--- Encryption execution time: 0.00847196578979 seconds ---
+--- Decryption execution time: 0.00326895713806 seconds ---
+-------------------------------------------
+----------------Iteration 49----------------------
+--- Encryption execution time: 0.0085871219635 seconds ---
+--- Decryption execution time: 0.00336599349976 seconds ---
+-------------------------------------------
+----------------Iteration 50----------------------
+--- Encryption execution time: 0.00888609886169 seconds ---
+--- Decryption execution time: 0.00341296195984 seconds ---
+-------------------------------------------
+--- Encryption average time:0.00864026546478
+--- Decryption average time:0.00338425636292

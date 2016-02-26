@@ -11,8 +11,8 @@ def simpleDecrypt1(plaintext, K,  key_len):
 	key_pos = 0
 	plaintext_len = len(plaintext)
 
-	print " plaintext_len=", plaintext_len
-	print "key_len=", key_len
+	### print " plaintext_len=", plaintext_len
+	### print "key_len=", key_len
 
 	while letter_pos < plaintext_len:
 		
@@ -88,15 +88,15 @@ def randomBlockDecrypt(ciphertext, K,  key_len, block_size):
 	prev_rand_key = [0] * key_len
 	rand_key = [0] * key_len
 
-	print "Block size =", block_size
-	print "Key len =", key_len
+	### "Block size =", block_size
+	### print "Key len =", key_len
 
 	first_block_decrypt_res = firstBlockDecrypt(ciphertext, K,  key_len, block_size)
 	first_block_plaintext = first_block_decrypt_res[0]
-	print "+++++first_block_plaintext", first_block_plaintext
+	### print "+++++first_block_plaintext", first_block_plaintext
 
 	readKey(keySeparation(first_block_plaintext, 0), rand_key, key_len)
-	print "+++++rand_key=", rand_key
+	### print "+++++rand_key=", rand_key
 
 	first_cipherblock_len = first_block_decrypt_res[1]
 
@@ -112,7 +112,7 @@ def randomBlockDecrypt(ciphertext, K,  key_len, block_size):
 		cipher_pos += 1
 		i += 1
 
-	print "cipherblock_len = ", cipherblock_len
+	### print "cipherblock_len = ", cipherblock_len
 
 	while letter_pos < ciphertext_len:
 		block = ""
@@ -120,18 +120,18 @@ def randomBlockDecrypt(ciphertext, K,  key_len, block_size):
 			if letter_pos < ciphertext_len:
 				block = block + ciphertext[letter_pos]
 			letter_pos += 1
-		print "+++++block_cipher=", block
+		### print "+++++block_cipher=", block
 		block_plaintext = simpleDecrypt1(block, K, key_len)
 		plaintext += block_plaintext
-		print "+++++block_plaintext=", block_plaintext
+		### print "+++++block_plaintext=", block_plaintext
 	
 	# 	readKey(generateRandomKey(key_len), rand_key, key_len)
 	# 	block = block + keyToText(rand_key, key_len)
 	# 	cipher_block = simpleEncrypt(block, K, key_len)
 
-	# 	print block
-	# 	print cipher_block
-	# 	print("------------")
+	# 	### print block
+	# 	### print cipher_block
+	# 	### print("------------")
 	# 	ciphertext = ciphertext + cipher_block + "|"
 
 	return first_block_plaintext + plaintext
@@ -163,12 +163,12 @@ def randomBlockDecryptV4(ciphertext, K,  key_len, block_size):
 	# last block reached flag
 	last = False
 
-	print "Block size =", block_size
-	print "Key len =", key_len
+	### print "Block size =", block_size
+	### print "Key len =", key_len
 
 	first_block_decrypt_res = firstBlockDecrypt(ciphertext, K,  key_len, block_size)
 	first_block_plaintext = first_block_decrypt_res[0]
-	print "+++++first_block_plaintext", first_block_plaintext
+	### print "+++++first_block_plaintext", first_block_plaintext
 
 
 	key_text_separation = keyTextSeparation(first_block_plaintext, 0)
@@ -176,7 +176,7 @@ def randomBlockDecryptV4(ciphertext, K,  key_len, block_size):
 	readKey(separated_key , rand_key, key_len)
 
 
-	print "+++++rand_key=", rand_key
+	### print "+++++rand_key=", rand_key
 
 	first_cipherblock_len = first_block_decrypt_res[1]
 
@@ -192,7 +192,7 @@ def randomBlockDecryptV4(ciphertext, K,  key_len, block_size):
 		if cipherblock_len > ciphertext_len - letter_pos:
 			cipherblock_len = copy(ciphertext_len - letter_pos)
 			last = True
-		print "cipherblock_len = ", cipherblock_len
+		### print "cipherblock_len = ", cipherblock_len
 		block = ""
 
 		if cipherblock_len < 0:
@@ -202,7 +202,7 @@ def randomBlockDecryptV4(ciphertext, K,  key_len, block_size):
 			if letter_pos < ciphertext_len:
 				block = block + ciphertext[letter_pos]
 			letter_pos += 1
-		print "+++++block_cipher=", block
+		### print "+++++block_cipher=", block
 		block_plaintext = simpleDecrypt2(block, prev_rand_key, key_len)
 
 		if last:
@@ -213,8 +213,8 @@ def randomBlockDecryptV4(ciphertext, K,  key_len, block_size):
 		separated_plaintext = key_text_separation[1]
 
 		plaintext += separated_plaintext
-		print "+++++block_plaintext=", block_plaintext
-		# print "+++++prev_rand_key=", prev_rand_key
+		### print "+++++block_plaintext=", block_plaintext
+		# ### print "+++++prev_rand_key=", prev_rand_key
 		
 		readKey(separated_key, rand_key, key_len)
 
@@ -224,13 +224,13 @@ def randomBlockDecryptV4(ciphertext, K,  key_len, block_size):
 	# 	block = block + keyToText(rand_key, key_len)
 	# 	cipher_block = simpleEncrypt(block, K, key_len)
 
-	# 	print block
-	# 	print cipher_block
-	# 	print("------------")
+	# 	### print block
+	# 	### print cipher_block
+	# 	### print("------------")
 	# 	ciphertext = ciphertext + cipher_block + "|"
 	
-	print ""
-	print "_______----_______----____Decryption Result:________------"
+	### print ""
+	### print "_______----_______----____Decryption Result:________------"
 
 	return plaintext
 

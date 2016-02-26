@@ -1,0 +1,20 @@
+----------------Iteration 1----------------------
+--- Encryption execution time: 0.000700950622559 seconds ---
+--- Decryption execution time: 0.000303030014038 seconds ---
+-------------------------------------------
+----------------Iteration 2----------------------
+--- Encryption execution time: 0.00049614906311 seconds ---
+--- Decryption execution time: 0.000264167785645 seconds ---
+-------------------------------------------
+----------------Iteration 3----------------------
+--- Encryption execution time: 0.000540018081665 seconds ---
+--- Decryption execution time: 0.000274896621704 seconds ---
+-------------------------------------------
+----------------Iteration 4----------------------
+--- Encryption execution time: 0.000585079193115 seconds ---
+--- Decryption execution time: 0.000285148620605 seconds ---
+-------------------------------------------
+----------------Iteration 5----------------------
+--- Encryption execution time: 0.000471115112305 seconds ---
+--- Decryption execution time: 0.000257015228271 seconds ---
+-------------------------------------------
