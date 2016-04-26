@@ -11,7 +11,7 @@ def simpleDecrypt1(plaintext, K,  key_len):
 	key_pos = 0
 	plaintext_len = len(plaintext)
 
-	### print " plaintext_len=", plaintext_len
+	print " plaintext_len=", plaintext_len
 	### print "key_len=", key_len
 
 	while letter_pos < plaintext_len:
