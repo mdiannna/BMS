@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST" class ="form-inline">
+<form method="post" class ="form-inline animated flipInX">
 	{{form.csrf_token}}
 	<H1>	Test BMS algorithm</H1>
 	<div>
@@ -39,22 +39,64 @@
 			{{form.nr_tests(class_='form-control')}}
 		</div>
 		<div>
-			{{form.submit(class_='form-control btn btn-default', onclick="test()") }}
-			<!-- {{form.submit(class_='form-control') }} -->
+			<!-- {{form.submit(class_='form-control btn btn-default', onclick="test()") }} -->
+			{{form.submit(class_='form-control btn btn-default') }}
+			<!-- <button onclick="test()">OK</button> -->
 		</div>
 	</div>
 	<p>Update: {{update}}</p>
 </form>
+<table id = "myTable" border="2px">
+	<th>Algorithm</th>
+	<th>Message length</th>
+	<th>Key length</th>
+	<th>Encryption time</th>
+	<th>Decryption time</th>
+
+	{% for alg in algorithm %}
+		<tr>
+			<td>{{alg}}</td>
+			<td>{{msg_len}}</td>
+			<td>{{key_len}}</td>
+			<td>{{enc_time}}</td>
+			<td>{{dec_time}}</td>
+		</tr>
+	{% endfor %}
+
+</table>
 
 <script type="text/javascript">
-	function test()
-	{
-		if ("{{update}}" == "True")		
-			alert('Update!!!');	
-		else
-			alert('Not update');
+	var table = document.getElementById("myTable");
+	var row = table.insertRow(0);
 
-	};
+	// function test()
+	// {
+
+		if ("{{update}}" == "True")	
+		{	
+			// alert('Update!!!');	
+			var table = document.getElementById("myTable");
+			var row = table.insertRow();
+
+			var algo_cell = row.insertCell(0);
+			var msg_len_cell = row.insertCell(1);
+			var key_len_cell = row.insertCell(2);
+			var enc_time_cell = row.insertCell(3);
+			var dec_time_cell = row.insertCell(4);
+
+			algo_cell.innerHTML = "{{algorithm}}";
+			msg_len_cell.innerHTML = "{{msg_len}}";
+			key_len_cell.innerHTML = "{{key_len}}";
+			enc_time_cell.innerHTML = "{{enc_time}}";
+			dec_time_cell.innerHTML = "{{dec_time}}";
+
+		// }
+		// else
+			// alert('Not update');
+
+	// };
 </script>
 {% endblock %}
+
+
 
