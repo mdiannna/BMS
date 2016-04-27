@@ -1,8 +1,14 @@
 from app import app
-from flask import render_template
+from forms import testForm
+from flask import render_template, request, redirect
 # from app.forms import
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-	return render_template("index.html")
+	update = 'True'
+	if request.method == 'POST':
+		update = 'True'
+		print "posted"
+	form = testForm(request.form, csrf_enabled=True)
+	return render_template("index.html", form=form, update=update)
