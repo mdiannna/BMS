@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="post" class ="form-inline animated flipInX">
+<form method="post" class ="form-inline animated flipInX" align="center">
 	{{form.csrf_token}}
 	<H1>	Test BMS algorithm</H1>
 	<div>
@@ -40,26 +40,28 @@
 		</div>
 		<div>
 			<!-- {{form.submit(class_='form-control btn btn-default', onclick="test()") }} -->
-			{{form.submit(class_='form-control btn btn-default') }}
+			{{form.submit(class_='form-control btn btn-default', onclick="getNr()", id="in") }}
 			<!-- <button onclick="test()">OK</button> -->
 		</div>
 	</div>
 	<p>Update: {{update}}</p>
 </form>
-<table id = "myTable" border="2px">
+<table id = "myTable" border="2px" align="center">
+	<th>Nr.</th>
 	<th>Algorithm</th>
 	<th>Message length</th>
 	<th>Key length</th>
-	<th>Encryption time</th>
-	<th>Decryption time</th>
+	<th>Encryption time(seconds)</th>
+	<th>Decryption time(seconds)</th>
 
-	{% for alg in algorithm %}
+	{% for i in range(nr_of_tests) %}
 		<tr>
-			<td>{{alg}}</td>
+			<td>{{i+1}}</td>
+			<td>{{algorithm}}</td>
 			<td>{{msg_len}}</td>
 			<td>{{key_len}}</td>
-			<td>{{enc_time}}</td>
-			<td>{{dec_time}}</td>
+			<td>{{enc_time[i]}}</td>
+			<td>{{dec_time[i]}}</td>
 		</tr>
 	{% endfor %}
 
