@@ -31,6 +31,7 @@
 {% endblock %}
 
 {% block content %}
+
 <form method="post" class ="form-inline animated flipInX" align="center">
 	{{form.csrf_token}}
 	<H1>	Test BMS algorithm</H1>
@@ -67,13 +68,24 @@
 	{% endfor %}
 	
 </table>
-<button onclick="generateChart()">Generate chart</button>
+
+<div style="margin-left: 10px;">
+	<button onclick="generateChart()">Generate chart</button>
+</div>
 
 <div align="center">
 	<label id ="canvas_label" for = "c" style="visibility: hidden;">Encryption time<br/>
 	<canvas id="c" width="1000" height="300"></canvas>    
 </label>
 </div>
+
+	
+
+{% if exception%}
+	<script type="text/javascript">
+		alert("Error! Please specify nr. of tests");
+	</script>
+{% endif %}
 
 
   <script type="text/javascript">
@@ -92,10 +104,12 @@
 		var dec_time_median_cell = row.insertCell(5);
  
 		algo_cell.innerHTML = "Median";
-		msg_len_cell.innerHTML = "{{msg_len}}";
-		key_len_cell.innerHTML = "{{key_len}}";
+		// msg_len_cell.innerHTML = "{{msg_len}}";
+		// key_len_cell.innerHTML = "{{key_len}}";
 		enc_time_median_cell.innerHTML = "{{enc_time_median[0]}}";
 		dec_time_median_cell.innerHTML = "Not computed";
+		
+		row.setAttribute("style", "font-weight: bold;");
   	}
 
   	function addMeanToTable()
@@ -111,15 +125,26 @@
 		var dec_time_mean_cell = row.insertCell(5);
  
 		algo_cell.innerHTML = "Mean";
-		msg_len_cell.innerHTML = "{{msg_len}}";
-		key_len_cell.innerHTML = "{{key_len}}";
+		// msg_len_cell.innerHTML = "{{msg_len}}";
+		// key_len_cell.innerHTML = "{{key_len}}";
 		enc_time_mean_cell.innerHTML = "{{enc_time_avg[0]}}";
 		dec_time_mean_cell.innerHTML = "Not computed";
+
+		// row.id="mean_row";
+		// document.getElementById("mean_cell").setAttribute("style", "font-weight: bold;");
+		row.setAttribute("style", "font-weight: bold;");
   		
   	}
 
-  	addMedianToTable();
-  	addMeanToTable();
+  	if({{enc_time}}.length>0)
+  	{
+  		addMedianToTable();
+  	  	addMeanToTable();
+  	}
+
+  	if({{show_chart}}){
+  		generateChart();
+  	};
 
 
 	function generateChart()
