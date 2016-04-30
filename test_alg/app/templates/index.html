@@ -78,62 +78,107 @@
 
   <script type="text/javascript">
 
+  
+  	function addMedianToTable()
+  	{
+  		var table = document.getElementById("myTable");
+ 		var row = table.insertRow();
+ 
+ 		var cell = row.insertCell(0);
+		var algo_cell = row.insertCell(1);
+		var msg_len_cell = row.insertCell(2);
+		var key_len_cell = row.insertCell(3);
+		var enc_time_median_cell = row.insertCell(4);
+		var dec_time_median_cell = row.insertCell(5);
+ 
+		algo_cell.innerHTML = "Median";
+		msg_len_cell.innerHTML = "{{msg_len}}";
+		key_len_cell.innerHTML = "{{key_len}}";
+		enc_time_median_cell.innerHTML = "{{enc_time_median[0]}}";
+		dec_time_median_cell.innerHTML = "Not computed";
+  	}
+
+  	function addMeanToTable()
+  	{
+  		var table = document.getElementById("myTable");
+ 		var row = table.insertRow();
+ 		
+ 		var cell = row.insertCell(0);
+		var algo_cell = row.insertCell(1);
+		var msg_len_cell = row.insertCell(2);
+		var key_len_cell = row.insertCell(3);
+		var enc_time_mean_cell = row.insertCell(4);
+		var dec_time_mean_cell = row.insertCell(5);
+ 
+		algo_cell.innerHTML = "Mean";
+		msg_len_cell.innerHTML = "{{msg_len}}";
+		key_len_cell.innerHTML = "{{key_len}}";
+		enc_time_mean_cell.innerHTML = "{{enc_time_avg[0]}}";
+		dec_time_mean_cell.innerHTML = "Not computed";
+  		
+  	}
+
+  	addMedianToTable();
+  	addMeanToTable();
+
+
 	function generateChart()
 	{
-	document.getElementById("canvas_label").setAttribute("style", "visibility: visible;");
-    
-    var labels_data = [];
-        
-    for (var i = 0; i<{{nr_of_tests}}; i++) 
-    {
-        labels_data.push((i+1).toString())
-    };
 
-    var ctx = document.getElementById("c").getContext("2d");
-    var data = {
+		document.getElementById("canvas_label").setAttribute("style", "visibility: visible;");
+	    
+	    var labels_data = [];
+	        
+	    for (var i = 0; i<{{nr_of_tests}}; i++) 
+	    {
+	        labels_data.push((i+1).toString())
+	    };
 
-      labels: labels_data,
-      datasets: [{
-        label: "Encryption time",
-        fillColor: "#E91E63",
-        strokeColor: "rgba(220,220,220,1)",
-        pointColor: "rgba(220,220,220,1)",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(220,220,220,1)",
-        data: {{enc_time}}
-      }
-      , 
-      {
-        label: "Median",
-        fillColor: "rgba(151,187,205,0.2)",
-        strokeColor: "red",
-        pointColor: "red",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(151,187,205,1)",
-        data: {{enc_time_median}}
-      }
-      , 
-      {
-        label: "Mean",
-        fillColor: "rgba(151,17,205,0.2)",
-        strokeColor: "orange",
-        pointColor: "orange",
-        pointStrokeColor: "#fff",
-        pointHighlightFill: "#fff",
-        pointHighlightStroke: "rgba(151,187,205,1)",
-        data: {{enc_time_avg}}
-      }
-      ]
-    };
+	    var ctx = document.getElementById("c").getContext("2d");
+	    var data = {
 
-    
-    var options = {      
-    	scaleLabel : "<%= value + ' ms ' %>"
-	};
-   
-    var MyNewChart = new Chart(ctx).Line(data, options);
+	      labels: labels_data,
+	      datasets: [{
+	        label: "Encryption time",
+	        fillColor: "#E91E63",
+	        strokeColor: "rgba(220,220,220,1)",
+	        pointColor: "rgba(220,220,220,1)",
+	        pointStrokeColor: "#fff",
+	        pointHighlightFill: "#fff",
+	        pointHighlightStroke: "rgba(220,220,220,1)",
+	        data: {{enc_time}}
+	      }
+	      , 
+	      {
+	        label: "Median",
+	        fillColor: "rgba(151,187,205,0.2)",
+	        strokeColor: "red",
+	        pointColor: "red",
+	        pointStrokeColor: "#fff",
+	        pointHighlightFill: "#fff",
+	        pointHighlightStroke: "rgba(151,187,205,1)",
+	        data: {{enc_time_median}}
+	      }
+	      , 
+	      {
+	        label: "Mean",
+	        fillColor: "rgba(151,17,205,0.2)",
+	        strokeColor: "orange",
+	        pointColor: "orange",
+	        pointStrokeColor: "#fff",
+	        pointHighlightFill: "#fff",
+	        pointHighlightStroke: "rgba(151,187,205,1)",
+	        data: {{enc_time_avg}}
+	      }
+	      ]
+	    };
+
+	    
+	    var options = {      
+	    	scaleLabel : "<%= value + ' ms ' %>"
+		};
+	   
+	    var MyNewChart = new Chart(ctx).Line(data, options);
    };
   </script>
 

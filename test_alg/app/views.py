@@ -46,7 +46,7 @@ def index():
 			enc_time.append(temp_enc_time)  
 			print "time:",temp_enc_time,  "seconds"
 			# !!!!!!!!!!!!!!!!!!!!!!
-			dec_time.append(50 + temp_enc_time*100000+20)  
+			dec_time.append("Not computed")  
 
 			# algorithm.append('Algorithm')
 		for i in range(nr_of_tests):
