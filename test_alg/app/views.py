@@ -6,7 +6,7 @@ import random
 import os
 import timeit
 import resource 
-from statistics import median
+from statistics import median, mean
 # from app.forms import
 
 NR_OF_TESTS = 10
@@ -24,6 +24,7 @@ def index():
 
 	nr_of_tests = 0
 	enc_time_median = []
+	enc_time_avg = []
 
 	if request.method == 'POST':
 		nr_of_tests = int(form.nr_tests.data)
@@ -49,6 +50,7 @@ def index():
 			# algorithm.append('Algorithm')
 		for i in range(nr_of_tests):
 			enc_time_median.append(median(enc_time))
+			enc_time_avg.append(mean(enc_time))
 		print "median", enc_time_median
 		
 		# return render_template("chart2.html", form=form, algorithm=algorithm, msg_len=msg_len, 
@@ -58,7 +60,8 @@ def index():
 
 	
 	return render_template("index.html", form=form, algorithm=algorithm, msg_len=msg_len, 
-			key_len=key_len, enc_time=enc_time, dec_time=dec_time, nr_of_tests=nr_of_tests, enc_time_median=enc_time_median)
+			key_len=key_len, enc_time=enc_time, dec_time=dec_time, nr_of_tests=nr_of_tests, 
+			enc_time_median=enc_time_median, enc_time_avg=enc_time_avg)
 
 
 def funct():

@@ -45,7 +45,6 @@
 			<!-- <button onclick="test()">OK</button> -->
 		</div>
 	</div>
-	<p>Update: {{update}}</p>
 </form>
 
 <table id = "myTable" border="2px" align="center">
@@ -71,7 +70,7 @@
 <button onclick="generateChart()">Generate chart</button>
 <div align="center">
 	
-	<canvas id="c" width="1000" height="500"></canvas>
+	<canvas id="c" width="1000" height="300"></canvas>
 </div>
 
   <script type="text/javascript">
@@ -89,7 +88,7 @@
 
       labels: labels_data,
       datasets: [{
-        label: "My First dataset",
+        label: "Encryption time",
         fillColor: "#E91E63",
         strokeColor: "rgba(220,220,220,1)",
         pointColor: "rgba(220,220,220,1)",
@@ -100,7 +99,7 @@
       }
       , 
       {
-        label: "My Second dataset",
+        label: "Median",
         fillColor: "rgba(151,187,205,0.2)",
         strokeColor: "red",
         pointColor: "red",
@@ -108,6 +107,17 @@
         pointHighlightFill: "#fff",
         pointHighlightStroke: "rgba(151,187,205,1)",
         data: {{enc_time_median}}
+      }
+      , 
+      {
+        label: "Mean",
+        fillColor: "rgba(151,17,205,0.2)",
+        strokeColor: "orange",
+        pointColor: "orange",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(151,187,205,1)",
+        data: {{enc_time_avg}}
       }
       ]
     };
