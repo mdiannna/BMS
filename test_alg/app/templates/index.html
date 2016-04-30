@@ -27,6 +27,11 @@
 	.same_line{
 		display: inline-block;
 	}
+
+	.colored-button{
+		background-color: #E91E63;
+
+	}
 </style>
 {% endblock %}
 
@@ -40,7 +45,7 @@
 			{{form.nr_tests.label}}
 			{{form.nr_tests(class_='form-control')}}
 			<!-- {{form.submit(class_='form-control btn btn-default', onclick="test()") }} -->
-			{{form.submit(class_='form-control btn btn-default btn-warning') }}
+			{{form.submit(class_='form-control btn btn-default btn-warning colored-button') }}
 			<!-- <button onclick="test()">OK</button> -->
 		</div>
 	</div>
