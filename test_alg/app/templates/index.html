@@ -35,14 +35,12 @@
 <form method="post" class ="form-inline animated flipInX" align="center">
 	{{form.csrf_token}}
 	<H1>	Test BMS algorithm</H1>
-	<div>
+	<div class="row" style="margin-top:10px; margin-bottom:10px;">
 		<div class="form-group input">
 			{{form.nr_tests.label}}
 			{{form.nr_tests(class_='form-control')}}
-		</div>
-		<div>
 			<!-- {{form.submit(class_='form-control btn btn-default', onclick="test()") }} -->
-			{{form.submit(class_='form-control btn btn-default') }}
+			{{form.submit(class_='form-control btn btn-default btn-warning') }}
 			<!-- <button onclick="test()">OK</button> -->
 		</div>
 	</div>
@@ -53,8 +51,8 @@
 	<th>Algorithm</th>
 	<th>Message length</th>
 	<th>Key length</th>
-	<th>Encryption time(seconds)</th>
-	<th>Decryption time(seconds)</th>
+	<th>Encryption time(ms)</th>
+	<th>Decryption time(ms)</th>
 
 	{% for i in range(nr_of_tests) %}
 		<tr>
@@ -69,15 +67,15 @@
 	
 </table>
 
-<div style="margin-left: 10px;">
-	<button onclick="generateChart()">Generate chart</button>
-</div>
-
+<hr>
 <div align="center">
 	<label id ="canvas_label" for = "c" style="visibility: hidden;">Encryption time<br/>
 	<canvas id="c" width="1000" height="300"></canvas>    
 </label>
+
 </div>
+<br>
+<br>
 
 	
 
@@ -142,7 +140,7 @@
   	  	addMeanToTable();
   	}
 
-  	if({{show_chart}}){
+  	if("{{show_chart}}" == "True"){
   		generateChart();
   	};
 
