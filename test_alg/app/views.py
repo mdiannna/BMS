@@ -6,7 +6,9 @@ import random
 import os
 import timeit
 import resource 
-from statistics import median, mean
+from statistics import median, mean, mode
+from collections import Counter
+from itertools import groupby
 # from app.forms import
 
 NR_OF_TESTS = 10
@@ -28,6 +30,7 @@ def index():
 	nr_of_tests = 0
 	enc_time_median = []
 	enc_time_avg = []
+	enc_time_mode = []
 
 	if request.method == 'POST':
 		exception = False
@@ -65,7 +68,32 @@ def index():
 		for i in range(nr_of_tests):
 			enc_time_median.append(median(enc_time))
 			enc_time_avg.append(mean(enc_time))
+			# enc_time_mode.append(mode(enc_time))
+			# enc_time_mode = Counter(enc_time).most_common()
+
+		data = Counter(enc_time)
+		data.most_common()   # Returns all unique items and their counts
+		temp = data.most_common(1)
+		mode_sum = 0
+
+		for j in range(len(temp)):
+			temp2 = temp[j]
+			# print "tem[2:", temp2
+			temp3 = temp2[j]
+			mode_sum += temp3;
+			# print "tem[3:", temp3
+		enc_mode = mode_sum/len(temp)
+
+		for i in range(nr_of_tests):
+			enc_time_mode.append(enc_mode);
+
+
+		print "most coomon:", enc_time_mode
+			
+			# print "enc time mode:", enc_time_mode
 		print "median", enc_time_median
+
+
 		
 		# return render_template("chart2.html", form=form, algorithm=algorithm, msg_len=msg_len, 
 		# 	key_len=key_len, enc_time=enc_time, dec_time=dec_time, nr_of_tests=nr_of_tests)
@@ -75,8 +103,8 @@ def index():
 	
 	return render_template("index.html", form=form, algorithm=algorithm, msg_len=msg_len, 
 			key_len=key_len, enc_time=enc_time, dec_time=dec_time, nr_of_tests=nr_of_tests, 
-			enc_time_median=enc_time_median, enc_time_avg=enc_time_avg, exception=exception,
-			show_chart=show_chart)
+			enc_time_median=enc_time_median, enc_time_avg=enc_time_avg, enc_time_mode=enc_time_mode,
+			exception=exception, show_chart=show_chart)
 
 
 def funct():
