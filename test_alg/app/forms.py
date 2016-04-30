@@ -5,3 +5,4 @@ from wtforms import TextField, IntegerField, PasswordField, SubmitField
 class testForm(Form):
 	nr_tests = IntegerField('Nr. of tests:')
 	submit = SubmitField('ok')
+	generate_chart = SubmitField('Generate chart')
