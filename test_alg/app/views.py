@@ -41,6 +41,7 @@ def index():
 			print "hello"
 			temp_enc_time =(timeit.timeit("funct()", setup="from app.views import funct", number=1)) 
 			enc_time_sum += temp_enc_time
+			temp_enc_time *= 1000
 			# print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 			enc_time.append(temp_enc_time)  
 			print "time:",temp_enc_time,  "seconds"

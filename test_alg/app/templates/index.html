@@ -68,14 +68,20 @@
 	
 </table>
 <button onclick="generateChart()">Generate chart</button>
+
 <div align="center">
-	
-	<canvas id="c" width="1000" height="300"></canvas>
+	<label id ="canvas_label" for = "c" style="visibility: hidden;">Encryption time<br/>
+	<canvas id="c" width="1000" height="300"></canvas>    
+</label>
 </div>
 
+
   <script type="text/javascript">
+
 	function generateChart()
 	{
+	document.getElementById("canvas_label").setAttribute("style", "visibility: visible;");
+    
     var labels_data = [];
         
     for (var i = 0; i<{{nr_of_tests}}; i++) 
@@ -121,7 +127,13 @@
       }
       ]
     };
-    var MyNewChart = new Chart(ctx).Line(data);
+
+    
+    var options = {      
+    	scaleLabel : "<%= value + ' ms ' %>"
+	};
+   
+    var MyNewChart = new Chart(ctx).Line(data, options);
    };
   </script>
 
