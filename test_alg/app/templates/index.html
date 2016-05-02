@@ -40,7 +40,22 @@
 <form method="post" class ="form-inline animated flipInX" align="center">
 	{{form.csrf_token}}
 	<H1>	Test BMS algorithm</H1>
-	<div class="row" style="margin-top:10px; margin-bottom:10px;">
+	<div class="row" style="margin-top:10px; margin-bottom:10px; display:block;">
+		<div class="form-group input">
+			{{form.algorithm.label}}
+			{{form.algorithm(class_='form-control')}}
+		</div>
+	
+		<div class="form-group input">
+			{{form.msg_len.label}}
+			{{form.msg_len(class_='form-control')}}
+		</div>
+	
+		<div class="form-group input">
+			{{form.key_len.label}}
+			{{form.key_len(class_='form-control')}}
+		</div>
+	
 		<div class="form-group input">
 			{{form.nr_tests.label}}
 			{{form.nr_tests(class_='form-control')}}
@@ -83,7 +98,7 @@
 
 <hr>
 <div align="center">
-	<label id ="dec_canvas_label" for = "dec_c" style="visibility: hidden;">Encryption time<br/>
+	<label id ="dec_canvas_label" for = "dec_c" style="visibility: hidden;">Decryption time<br/>
 		<canvas id="dec_c" width="1000" height="300"></canvas>    
 	</label>
 </div>
@@ -118,7 +133,7 @@
 		// msg_len_cell.innerHTML = "{{msg_len}}";
 		// key_len_cell.innerHTML = "{{key_len}}";
 		enc_time_median_cell.innerHTML = "{{enc_time_median[0]}}";
-		dec_time_median_cell.innerHTML = "Not computed";
+		dec_time_median_cell.innerHTML = "{{dec_time_median[0]}}";
 		
 		row.setAttribute("style", "font-weight: bold;");
   	}
@@ -139,7 +154,7 @@
 		// msg_len_cell.innerHTML = "{{msg_len}}";
 		// key_len_cell.innerHTML = "{{key_len}}";
 		enc_time_mean_cell.innerHTML = "{{enc_time_avg[0]}}";
-		dec_time_mean_cell.innerHTML = "Not computed";
+		dec_time_mean_cell.innerHTML = "{{dec_time_avg[0]}}";
 
 		// row.id="mean_row";
 		// document.getElementById("mean_cell").setAttribute("style", "font-weight: bold;");
@@ -164,7 +179,7 @@
 		// msg_len_cell.innerHTML = "{{msg_len}}";
 		// key_len_cell.innerHTML = "{{key_len}}";
 		enc_time_mode_cell.innerHTML = "{{enc_time_mode[0]}}";
-		dec_time_mode_cell.innerHTML = "Not computed";
+		dec_time_mode_cell.innerHTML = "{{dec_time_mode[0]}}";
 		
 		row.setAttribute("style", "font-weight: bold;");
   	}

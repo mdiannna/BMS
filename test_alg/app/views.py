@@ -9,7 +9,8 @@ import resource
 from statistics import median, mean
 from collections import Counter
 from itertools import groupby
-# from app.forms import
+import string
+import random
 
 NR_OF_TESTS = 10
 test_args = ""
@@ -22,16 +23,18 @@ def index():
 	exception = False
 
 	algorithm = 'BMS'
-	msg_len = 10
-	key_len = 10
-	enc_time = []
-	dec_time = []
-
-
 	nr_of_tests = 0
+	msg_len = 0
+	key_len = 0
+
+	enc_time = []
 	enc_time_median = []
 	enc_time_avg = []
 	enc_time_mode = []
+	dec_time = []
+	dec_time_median = []
+	dec_time_avg = []
+	dec_time_mode = []
 
 	if request.method == 'POST':
 		exception = False
@@ -45,24 +48,31 @@ def index():
 			nr_of_tests = 0
 			show_chart = False
 
-		msg_len *= random.randint(1, 10)
-		key_len += 1
+		algorithm = form.algorithm.data
+		
+		if not (algorithm == 'BMS' or algorithm == 'AES'):
+			exception = True
+		else:
+			msg_len = form.msg_len.data
+			key_len = form.key_len.data
 
 
-		enc_dec = "enc"
-		data_statistics = calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests)
-		enc_time = data_statistics[0]
-		enc_time_median = data_statistics[1]
-		enc_time_avg = data_statistics[2]
-		enc_time_mode = data_statistics[3]
+			enc_dec = "enc"
+			data_statistics = calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests)
 
-		enc_dec = "dec"
-		data_statistics = calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests)
-		dec_time = data_statistics[0]
-		dec_time_median = data_statistics[1]
-		dec_time_avg = data_statistics[2]
-		dec_time_mode = data_statistics[3]
-	
+			enc_time = data_statistics[0]
+			enc_time_median = data_statistics[1]
+			enc_time_avg = data_statistics[2]
+			enc_time_mode = data_statistics[3]
+
+			enc_dec = "dec"
+			data_statistics = calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests)
+
+			dec_time = data_statistics[0]
+			dec_time_median = data_statistics[1]
+			dec_time_avg = data_statistics[2]
+			dec_time_mode = data_statistics[3]
+		
 	return render_template("index.html", form=form, algorithm=algorithm, msg_len=msg_len, 
 			key_len=key_len, enc_time=enc_time, dec_time=dec_time, nr_of_tests=nr_of_tests, 
 			enc_time_median=enc_time_median, enc_time_avg=enc_time_avg, enc_time_mode=enc_time_mode,
@@ -117,10 +127,22 @@ def test_dec_AES(args):
 	print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 
 
+def generateMsg(msg_len):
+	msg = ""
+	for i in range(msg_len):
+		msg += random.choice(string.letters)
+	return msg
+
+def generateKey(key_len):
+	key = 0
+	for i in range(key_len):
+		key = key*10 + random.randint(1, 9)
+	return key
+
 def calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests):
 
-	msg = "test"
-	key = 1234
+	msg = generateMsg(msg_len)
+	key = generateKey(key_len)
 
 	global test_args 
 	test_args = " " + str(msg) + " " + str(key)			
