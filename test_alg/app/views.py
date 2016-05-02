@@ -66,6 +66,7 @@ def index():
 	return render_template("index.html", form=form, algorithm=algorithm, msg_len=msg_len, 
 			key_len=key_len, enc_time=enc_time, dec_time=dec_time, nr_of_tests=nr_of_tests, 
 			enc_time_median=enc_time_median, enc_time_avg=enc_time_avg, enc_time_mode=enc_time_mode,
+			dec_time_median=dec_time_median, dec_time_avg=dec_time_avg, dec_time_mode=dec_time_mode,
 			exception=exception, show_chart=show_chart)
 
 
