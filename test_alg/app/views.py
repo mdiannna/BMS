@@ -6,7 +6,7 @@ import random
 import os
 import timeit
 import resource 
-from statistics import median, mean, mode
+from statistics import median, mean
 from collections import Counter
 from itertools import groupby
 # from app.forms import
@@ -54,13 +54,13 @@ def index():
 		
 		
 		for i in range(nr_of_tests):
-			print "hello"
+			# print "hello"
 			temp_enc_time =(timeit.timeit("funct()", setup="from app.views import funct", number=1)) 
 			enc_time_sum += temp_enc_time
 			temp_enc_time *= 1000
 			# print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 			enc_time.append(temp_enc_time)  
-			print "time:",temp_enc_time,  "seconds"
+			# # print "time:",temp_enc_time,  "seconds"
 			# !!!!!!!!!!!!!!!!!!!!!!
 			dec_time.append("Not computed")  
 
@@ -71,28 +71,25 @@ def index():
 			# enc_time_mode.append(mode(enc_time))
 			# enc_time_mode = Counter(enc_time).most_common()
 
-		data = Counter(enc_time)
-		data.most_common()   # Returns all unique items and their counts
-		temp = data.most_common(1)
-		mode_sum = 0
+		# data = Counter(enc_time)
+		# data.most_common()   # Returns all unique items and their counts
+		# temp = data.most_common(1)
+		# mode_sum = 0
 
-		for j in range(len(temp)):
-			temp2 = temp[j]
-			# print "tem[2:", temp2
-			temp3 = temp2[j]
-			mode_sum += temp3;
-			# print "tem[3:", temp3
-		enc_mode = mode_sum/len(temp)
+		# for j in range(len(temp)):
+		# 	temp2 = temp[j]
+		# 	# print "tem[2:", temp2
+		# 	temp3 = temp2[j]
+		# 	mode_sum += temp3;
+		# 	# print "tem[3:", temp3
+		# enc_mode = mode_sum/len(temp)
+
+		enc_time_int = map(int, enc_time)
+		print "MODE:", calcMode(enc_time_int)
+		enc_mode = mean(calcMode(enc_time_int))
 
 		for i in range(nr_of_tests):
 			enc_time_mode.append(enc_mode);
-
-
-		print "most coomon:", enc_time_mode
-			
-			# print "enc time mode:", enc_time_mode
-		print "median", enc_time_median
-
 
 		
 		# return render_template("chart2.html", form=form, algorithm=algorithm, msg_len=msg_len, 
@@ -106,8 +103,39 @@ def index():
 			enc_time_median=enc_time_median, enc_time_avg=enc_time_avg, enc_time_mode=enc_time_mode,
 			exception=exception, show_chart=show_chart)
 
+def calcMode(list):	
+	d = {}
+	for elm in list:
+		try:
+			d[elm] += 1
+		except(KeyError):
+			d[elm] = 1
+	
+	keys = d.keys()
+	max = d[keys[0]]
+	
+	for key in keys[1:]:
+		if d[key] > max:
+			max = d[key]
+
+	max_k = []		
+	for key in keys:
+		if d[key] == max:
+			max_k.append(key),
+
+	# print "max:", max
+
+	# print("MODESSSS")
+	# for key in max_k:
+	# 	if d[key] == max:
+	# 		print key
+	# return max_k, max
+	return max_k
+
+
 
 def funct():
-	a = 2+2
+	# a = 2+2
+	os.system("python test.py 10 asd")
 	print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 	
