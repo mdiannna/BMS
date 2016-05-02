@@ -55,6 +55,13 @@ def index():
 		enc_time_median = data_statistics[1]
 		enc_time_avg = data_statistics[2]
 		enc_time_mode = data_statistics[3]
+
+		enc_dec = "dec"
+		data_statistics = calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests)
+		dec_time = data_statistics[0]
+		dec_time_median = data_statistics[1]
+		dec_time_avg = data_statistics[2]
+		dec_time_mode = data_statistics[3]
 	
 	return render_template("index.html", form=form, algorithm=algorithm, msg_len=msg_len, 
 			key_len=key_len, enc_time=enc_time, dec_time=dec_time, nr_of_tests=nr_of_tests, 
@@ -81,35 +88,31 @@ def calcMode(list):
 	for key in keys:
 		if d[key] == max:
 			max_k.append(key),
-
-	# print "max:", max
-
-	# print("MODESSSS")
-	# for key in max_k:
-	# 	if d[key] == max:
-	# 		print key
-	# return max_k, max
 	return max_k
 
 
 def test_enc_BMS(args):
-	# a = 2+2
-	os.system("python test.py " + args)
+	command = "python " + "BMS_inloc" + ".py" + args
+	os.system(command)
+	print command
 	print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 
 def test_dec_BMS(args):
-	# a = 2+2
-	os.system("python test.py " + args)
+	command = "python " + "BMS_inloc" + ".py" + args
+	os.system(command)
+	print command
 	print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 
 def test_enc_AES(args):
-	# a = 2+2
-	os.system("python test.py " + args)
+	command = "python " + "AES_inloc" + ".py" + args
+	os.system(command)
+	print command
 	print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 
 def test_dec_AES(args):
-	# a = 2+2
-	os.system("python test.py " + args)
+	command = "python " + "AES_inloc" + ".py" + args
+	os.system(command)
+	print command
 	print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 
 
@@ -122,33 +125,33 @@ def calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests):
 	test_args = " " + str(msg) + " " + str(key)			
 	function_name = "test_" + enc_dec + "_" + algorithm
 
-	enc_time = []
-	dec_time = []
-	enc_time_median = []
-	enc_time_avg = []
-	enc_time_mode = []
+	time = []
+	
+	time_median = []
+	time_avg = []
+	time_mode = []
 
 	for i in range(nr_of_tests):
-		temp_enc_time =(timeit.timeit(function_name + "(test_args)", setup="from app.views import " + function_name + "," + "test_args", number=1)) 
-		temp_enc_time *= 1000
+		temp_time =(timeit.timeit(function_name + "(test_args)", setup="from app.views import " + function_name + "," + "test_args", number=1)) 
+		temp_time *= 1000
 		# print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
-		enc_time.append(temp_enc_time)  
+		time.append(temp_time)  
 		# !!!!!!!!!!!!!!!!!!!!!!
-		dec_time.append("Not computed")  
+	
 
 		# algorithm.append('Algorithm')
 	for i in range(nr_of_tests):
-		enc_time_median.append(median(enc_time))
-		enc_time_avg.append(mean(enc_time))
+		time_median.append(median(time))
+		time_avg.append(mean(time))
 		
-	enc_time_int = map(int, enc_time)
-	print "MODE:", calcMode(enc_time_int)
-	enc_mode = mean(calcMode(enc_time_int))
+	time_int = map(int, time)
+	print "MODE:", calcMode(time_int)
+	mode = mean(calcMode(time_int))
 
 	for i in range(nr_of_tests):
-		enc_time_mode.append(enc_mode);
+		time_mode.append(mode);
 
-	return enc_time, enc_time_median, enc_time_avg, enc_time_mode
+	return time, time_median, time_avg, time_mode
 
 
 
