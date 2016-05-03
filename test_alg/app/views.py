@@ -4,6 +4,7 @@ from flask import render_template, request, redirect
 import random
 
 import os
+import commands
 import timeit
 import resource 
 from statistics import median, mean
@@ -12,6 +13,7 @@ from itertools import groupby
 import string
 import random
 import math
+
 
 
 NR_OF_TESTS = 10
@@ -60,12 +62,12 @@ def index():
 
 
 			enc_dec = "enc"
-			data_statistics = calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests)
+			data_statistics_enc = calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests)
 
-			enc_time = data_statistics[0]
-			enc_time_median = data_statistics[1]
-			enc_time_avg = data_statistics[2]
-			enc_time_mode = data_statistics[3]
+			enc_time = data_statistics_enc[0]
+			enc_time_median = data_statistics_enc[1]
+			enc_time_avg = data_statistics_enc[2]
+			enc_time_mode = data_statistics_enc[3]
 
 			enc_dec = "dec"
 			data_statistics = calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests)
@@ -74,6 +76,8 @@ def index():
 			dec_time_median = data_statistics[1]
 			dec_time_avg = data_statistics[2]
 			dec_time_mode = data_statistics[3]
+
+			print "enc_time:", enc_time, "dec time:", dec_time
 		
 	return render_template("index.html", form=form, algorithm=algorithm, msg_len=msg_len, 
 			key_len=key_len, enc_time=enc_time, dec_time=dec_time, nr_of_tests=nr_of_tests, 
@@ -105,14 +109,15 @@ def calcMode(list):
 
 
 def test_enc_BMS(args):
-	command = "python " + "BMS_inloc" + ".py" + args
+	# command = "python " + "BMS_inloc" + ".py" + args
+	command = './BMS_cpp/main' + args
 	os.system(command)
 	print command
 	print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 
 def test_dec_BMS(args):
-	command = "python " + "BMS_inloc" + ".py" + args
-	os.system(command)
+	# command = "python " + "BMS_inloc" + ".py" + args
+	command = './BMS_cpp/main' + args
 	print command
 	print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 
@@ -196,3 +201,14 @@ def brute_force_chart():
 	print "Key length:", key_len
 	print "Block size:", block_size
 	return render_template("brute_force_chart.html", key_len=key_len, block_size=block_size, nr_of_tests=nr_of_tests)
+
+
+@app.route('/compile')
+def compile():
+	os.system("g++ BMS_cpp/main.cpp BMS_cpp/encryption.cpp BMS_cpp/decryption.cpp BMS_cpp/keylib.cpp" )
+	os.system('g++ -o BMS_cpp/main BMS_cpp/main.cpp BMS_cpp/encryption.cpp BMS_cpp/decryption.cpp BMS_cpp/keylib.cpp')
+	# os.system('xxd -c10 -b ./BMS_cpp/main')
+	os.system('./BMS_cpp/main')
+	# print "C++++++: ", commands.getstatusoutput('./BMS_cpp/main')
+
+	return "compiled"
