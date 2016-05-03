@@ -11,6 +11,8 @@ from collections import Counter
 from itertools import groupby
 import string
 import random
+import math
+
 
 NR_OF_TESTS = 10
 test_args = ""
@@ -179,3 +181,18 @@ def calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests):
 
 
 	
+@app.route('/brute_force_chart', methods=['GET', 'POST'])
+def brute_force_chart():
+	key_len = []
+	block_size = []
+
+	nr_of_tests = 100
+
+	for b in range(1, nr_of_tests):
+		k = (256.0 * math.log10(2)) / (math.log10(9.0 * b))
+		key_len.append(int(round(k)))
+		block_size.append(b)
+
+	print "Key length:", key_len
+	print "Block size:", block_size
+	return render_template("brute_force_chart.html", key_len=key_len, block_size=block_size, nr_of_tests=nr_of_tests)

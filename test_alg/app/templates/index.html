@@ -90,7 +90,7 @@
 <hr>
 <div align="center">
 	<label id ="enc_canvas_label" for = "enc_c" style="visibility: hidden;">Encryption time<br/>
-		<canvas id="enc_c" width="1000" height="300"></canvas>    
+		<canvas id="enc_c" width="20000" height="5000"></canvas>    
 	</label>
 </div>
 <br>
@@ -232,11 +232,20 @@
 
 	    var ctx = document.getElementById(enc_dec + "_c").getContext("2d");
 	    var data = {
-
 	      labels: labels_data,
+
 	      datasets: [{
 	        label: "Encryption time",
-	        fillColor: "#E91E63",
+	        fillColor: "#6DA8D6",
+	        // fillColor: "#F36F25",
+	        // fillColor: "#F0494C",
+	        // fillColor: "#1ABC9C",
+
+
+	        // F36F25
+	        // 6DA8D6
+	        // F0494C
+	        // fillColor: "#E91E63",
 	        strokeColor: "rgba(220,220,220,1)",
 	        pointColor: "rgba(220,220,220,1)",
 	        pointStrokeColor: "#fff",
@@ -247,9 +256,9 @@
 	      , 
 	      {
 	        label: "Mode",
-	        fillColor: "rgba(151,187,205,0.1)",
-	        strokeColor: "red",
-	        pointColor: "red",
+	        fillColor: "rgba(151,187,205,0)",
+	        strokeColor: "#082947",
+	        pointColor: "#082947",
 	        pointStrokeColor: "#fff",
 	        pointHighlightFill: "#fff",
 	        pointHighlightStroke: "rgba(151,187,205,1)",
@@ -258,9 +267,9 @@
 	      , 
 	      {
 	        label: "Median",
-	        fillColor: "rgba(151,187,205,0.1)",
-	        strokeColor: "purple",
-	        pointColor: "purple",
+	        fillColor: "rgba(151,187,205,0)",
+	        strokeColor: "#2C3E50",
+	        pointColor: "#2C3E50",
 	        pointStrokeColor: "#fff",
 	        pointHighlightFill: "#fff",
 	        pointHighlightStroke: "rgba(151,187,205,1)",
@@ -269,9 +278,9 @@
 	      , 
 	      {
 	        label: "Mean",
-	        fillColor: "rgba(151,17,205,0.2)",
-	        strokeColor: "orange",
-	        pointColor: "orange",
+	        fillColor: "rgba(151,17,205,0)",
+	        strokeColor: "#464646",
+	        pointColor: "#464646",
 	        pointStrokeColor: "#fff",
 	        pointHighlightFill: "#fff",
 	        pointHighlightStroke: "rgba(151,187,205,1)",

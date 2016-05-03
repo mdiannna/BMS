@@ -1,0 +1,94 @@
+{% block head%}
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<style type="text/css">
+  .chart-legend li span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+  
+}
+.legend-style{
+    font-weight: blod;
+    font-size: 16px;
+}
+
+.legend-title{
+  font-weight: blod;
+  font-size: 20px; 
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+<H1 align="center">  BMS achieving 2^256 complexity(256-AES)</H1>
+<div>
+  <canvas id="c" width="20000" height="7000" style="width:1600; height: 700;" class="legend-style"></canvas>
+  <div class="legend-title">Legend <br></div>
+  <div id="legendDiv" class="chart-legend legend-style"></div>
+</div>
+
+  <script>
+    var labels_data = [];
+        
+    for (var i = 0; i<{{nr_of_tests}}; i++) 
+    {
+        labels_data.push((i+1).toString())
+    };
+
+    var ctx = document.getElementById("c").getContext("2d");
+    var data = {
+
+      labels: labels_data,
+      datasets: [{
+        // fillColor: "#6DA8D6",
+          // fillColor: "#F36F25",
+          // fillColor: "#F0494C",
+          // fillColor: "#1ABC9C",
+
+        label: "Key length",
+        fillColor: "rgba(240, 73, 76,0.6)",
+        strokeColor: "rgba(240, 73, 76,1)",
+        pointColor: "rgba(240, 73, 76,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(220,220,220,1)",
+        data: {{key_len}}
+      }, 
+      {
+        label: "Block size",
+        fillColor: "rgba(109, 168, 214,0.5)",
+        strokeColor: "rgba(109, 168, 214,1)",
+        pointColor: "rgba(109, 168, 214,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(151,187,205,1)",
+        data: {{block_size}}
+      }
+      ]
+    };
+
+
+  //   var options = {
+  // legendTemplate : '<ul>'
+  //                 +'<% for (var i=0; i<datasets.length; i++) { %>'
+  //                   +'<li>'
+  //                   +'<span style=\"background-color:<%=datasets[i].lineColor%>\"></span>'
+  //                   +'<% if (datasets[i].label) { %><%= datasets[i].label %><% } %>'
+  //                 +'</li>'
+  //               +'<% } %>'
+  //             +'</ul>'
+  // }
+
+    var MyNewChart = new Chart(ctx).Line(data);
+  
+
+
+  //don't forget to pass options in when creating new Chart
+  // var lineChart = new Chart(element).Line(data, options);
+ // document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+  document.getElementById('legendDiv').innerHTML = MyNewChart.generateLegend();
+
+  </script>
+{% endblock %}
