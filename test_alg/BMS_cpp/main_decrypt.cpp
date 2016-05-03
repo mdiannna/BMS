@@ -38,31 +38,34 @@ int main(int argc, char *argv[]){
 
         // plaintext = argv[1];
         // int_key = atoi(argv[2]);
-        plaintext = "AAAAAA";
+        plaintext = "AAAAAAs";
         int_key = 12;
 ///        // scanf("%d", &int_key);
         // printf("Key: %d\n", int_key);
 
+cout <<"yes";
         readKey(int_key, K1, key_len);
-        // scanf("%d" , &block_size);
+///        // scanf("%d" , &block_size);
 
         // printf("bLOCK SIZE: %d\n", block_size);
 
         // cin >> plaintext;
-       // cout << "plaintext length:" << plaintext.length();
-       // cout << "Plaintext:" << plaintext << endl;
+       ////// cout << "plaintext length:" << plaintext.length();
+      // cout << "Plaintext:" << plaintext << endl;
         //printf("Plaintext: %s\n", plaintext);
 
         // ciphertext = "111111111111111111";
         // ciphertext = simpleencryptMessage(plaintext, K1, key_len);
         // ciphertext = blockEncryption ( block_size ,  plaintext , K1, key_len);
-        ciphertext = blockEncryptionV4 ( block_size ,  plaintext , K1, key_len);
+         ciphertext = blockEncryptionV4 ( block_size ,  plaintext , K1, key_len);
         cout << "Ciphertext: " <<  ciphertext << endl << "key_len:" << key_len << endl;
 
         // ciphertext = "11111111111111111111111111111111111111111111";
 
+        cout << "XX" << endl;
+        plaintext = simpleDecrypt(ciphertext, arr K1, key_len);
         // plaintext = blockDecryptV4(ciphertext, K1, key_len, block_size);
-        // cout << "Decrypted plaintext: "<< plaintext << endl;
+        cout << "Decrypted plaintext: "<< plaintext << endl;
 
         // printf("------------------------\n");
         // printf("----Time taken: -- %.29f ms \n", (double)(clock() - tStart)*1000/CLOCKS_PER_SEC);

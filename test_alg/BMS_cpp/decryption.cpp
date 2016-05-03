@@ -19,7 +19,7 @@ string simpleDecrypt(string ciphertext, arr K,  int key_len)
 	int cipher_pos = 0;
 	int ciphertext_len = ciphertext.length();
 
-	//cout << "----ciphertext=" <<  ciphertext << "    ciphertext_len =" << ciphertext_len << endl;
+	cout << "----ciphertext=" <<  ciphertext << "    ciphertext_len =" << ciphertext_len << endl;
 
     while(cipher_pos<ciphertext_len){
         cipher_pos = cipher_pos + K[key_pos];

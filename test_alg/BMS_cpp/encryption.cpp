@@ -12,8 +12,6 @@
 
 
 
-
-
 void readKey(int int_key, arr &K, int &key_len){
     key_len = 0;
     int nr1 = 0;
@@ -127,6 +125,7 @@ string blockEncryptionV4 (int block_size , string plaintext , arr K, int key_len
     int plaintext_len = plaintext.length();
     string ithmessage;
     int * J;
+    // arr arr_J;
     arr prev_K;
     pointerToArray(K, prev_K, key_len);
 
@@ -139,8 +138,9 @@ string blockEncryptionV4 (int block_size , string plaintext , arr K, int key_len
 
         ithmessage = plaintext.substr(letter_pos, block_size);
 
-
+        // !!! Carefully! Rosk of error!!
         J = generateRandomKey(key_len);
+        // printArray(J, key_len);
 
         string rand_key = intArrTochar(J, key_len);
         ithmessage += rand_key;

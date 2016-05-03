@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "keylib.h"
+#include <vector>
 
 
 using namespace std;
@@ -64,10 +65,26 @@ int * keyTransform(arr first_key, int first_key_len){
 }
 
 
+int * getRandom( int key_len)
+{
+  int  r[key_len];
+
+  // set the seed
+  srand( (unsigned)time( NULL ) );
+  for (int i = 0; i < key_len; ++i)
+  {
+    r[i] = rand() % 9 + 1;
+    cout << r[i] << endl;
+  }
+
+  return r;
+}
+
+
 int * generateRandomKey(int key_len){
 
-    int * random_key;
-
+    int random_key[key_len];
+    srand( (unsigned)time( NULL ) );
     for(int i=0; i<key_len; i++){
         random_key[i] = rand() % 9 + 1;
     }

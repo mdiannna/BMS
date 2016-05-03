@@ -110,14 +110,14 @@ def calcMode(list):
 
 def test_enc_BMS(args):
 	# command = "python " + "BMS_inloc" + ".py" + args
-	command = './BMS_cpp/main' + args
+	command = './BMS_cpp/encrypt' + args
 	print command
 	return commands.getstatusoutput(command)[1].replace('\n', '')
 	# print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 
 def test_dec_BMS(args):
 	# command = "python " + "BMS_inloc" + ".py" + args
-	command = './BMS_cpp/main' + args
+	command = './BMS_cpp/encrypt' + args
 	print command
 	return commands.getstatusoutput(command)[1].replace('\n', '')
 	# print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
@@ -208,11 +208,15 @@ def brute_force_chart():
 
 @app.route('/compile')
 def compile():
-	os.system("g++ BMS_cpp/main.cpp BMS_cpp/encryption.cpp BMS_cpp/decryption.cpp BMS_cpp/keylib.cpp" )
-	os.system('g++ -o BMS_cpp/main BMS_cpp/main.cpp BMS_cpp/encryption.cpp BMS_cpp/decryption.cpp BMS_cpp/keylib.cpp')
+	os.system("g++ BMS_cpp/main_encrypt.cpp BMS_cpp/encryption.cpp BMS_cpp/decryption.cpp BMS_cpp/keylib.cpp" )
+	os.system('g++ -o BMS_cpp/encrypt BMS_cpp/main_encrypt.cpp BMS_cpp/encryption.cpp BMS_cpp/decryption.cpp BMS_cpp/keylib.cpp')
+	os.system("g++ BMS_cpp/main_decrypt.cpp BMS_cpp/encryption.cpp BMS_cpp/decryption.cpp BMS_cpp/keylib.cpp" )
+	os.system('g++ -o BMS_cpp/decrypt BMS_cpp/main_decrypt.cpp BMS_cpp/encryption.cpp BMS_cpp/decryption.cpp BMS_cpp/keylib.cpp')
 	# os.system('xxd -c10 -b ./BMS_cpp/main')
 	# os.system('./BMS_cpp/main')
-	comp_output = "<strong>C++ compilation output:<strong><br>"+ commands.getstatusoutput('./BMS_cpp/main')[1].replace('\n', '<br>')
+	comp_output = "<strong>C++ compilation output:<strong><br>"+ commands.getstatusoutput('./BMS_cpp/encrypt')[1].replace('\n', '<br>')
+	comp_output += "<br>---<br>"+ commands.getstatusoutput('./BMS_cpp/decrypt')[1].replace('\n', '<br>')
 
 	print "****", comp_output.replace('<strong>', "").replace('<br>', '\n')
+
 	return comp_output
