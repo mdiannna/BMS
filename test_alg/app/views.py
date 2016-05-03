@@ -111,15 +111,16 @@ def calcMode(list):
 def test_enc_BMS(args):
 	# command = "python " + "BMS_inloc" + ".py" + args
 	command = './BMS_cpp/main' + args
-	os.system(command)
 	print command
-	print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
+	return commands.getstatusoutput(command)[1].replace('\n', '')
+	# print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 
 def test_dec_BMS(args):
 	# command = "python " + "BMS_inloc" + ".py" + args
 	command = './BMS_cpp/main' + args
 	print command
-	print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
+	return commands.getstatusoutput(command)[1].replace('\n', '')
+	# print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 
 def test_enc_AES(args):
 	command = "python " + "AES_inloc" + ".py" + args
@@ -162,8 +163,10 @@ def calcPerformance(enc_dec, key_len, msg_len, algorithm, nr_of_tests):
 	time_mode = []
 
 	for i in range(nr_of_tests):
-		temp_time =(timeit.timeit(function_name + "(test_args)", setup="from app.views import " + function_name + "," + "test_args", number=1)) 
-		temp_time *= 1000
+		# temp_time =(timeit.timeit(function_name + "(test_args)", setup="from app.views import " + function_name + "," + "test_args", number=1)) 
+
+		temp_time = float(eval(function_name + "('" + test_args + "')"))
+		# eval(test_dec_BMS())
 		# print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
 		time.append(temp_time)  
 		# !!!!!!!!!!!!!!!!!!!!!!
@@ -208,7 +211,8 @@ def compile():
 	os.system("g++ BMS_cpp/main.cpp BMS_cpp/encryption.cpp BMS_cpp/decryption.cpp BMS_cpp/keylib.cpp" )
 	os.system('g++ -o BMS_cpp/main BMS_cpp/main.cpp BMS_cpp/encryption.cpp BMS_cpp/decryption.cpp BMS_cpp/keylib.cpp')
 	# os.system('xxd -c10 -b ./BMS_cpp/main')
-	os.system('./BMS_cpp/main')
-	# print "C++++++: ", commands.getstatusoutput('./BMS_cpp/main')
+	# os.system('./BMS_cpp/main')
+	comp_output = "<strong>C++ compilation output:<strong><br>"+ commands.getstatusoutput('./BMS_cpp/main')[1].replace('\n', '<br>')
 
-	return "compiled"
+	print "****", comp_output.replace('<strong>', "").replace('<br>', '\n')
+	return comp_output

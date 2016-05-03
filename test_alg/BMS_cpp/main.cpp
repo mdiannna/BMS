@@ -32,14 +32,14 @@ int main(){
 
 
     scanf("%d", &int_key);
-    printf("Key: %d\n", int_key);
+    // printf("Key: %d\n", int_key);
 
     readKey(int_key, K1, key_len);
     scanf("%d" , &block_size);
-    printf("bLOCK SIZE: %d\n", block_size);
+    // printf("bLOCK SIZE: %d\n", block_size);
 
     cin >> plaintext;
-    cout << "plaintext length:" << plaintext.length();
+   ////// cout << "plaintext length:" << plaintext.length();
   // cout << "Plaintext:" << plaintext << endl;
     //printf("Plaintext: %s\n", plaintext);
 
@@ -50,9 +50,11 @@ int main(){
     plaintext = blockDecryptV4(ciphertext, K1, key_len, block_size);
    // cout << "Decrypted plaintext: "<<plaintext << endl;
 
-    printf("------------------------\n");
-    printf("----Time taken: -- %.29f ms \n", (double)(clock() - tStart)*1000/CLOCKS_PER_SEC);
-    printf("------------------------\n");
+    // printf("------------------------\n");
+    // printf("----Time taken: -- %.29f ms \n", (double)(clock() - tStart)*1000/CLOCKS_PER_SEC);
+    // printf("------------------------\n");
+
+    printf("%.29f\n", (double)(clock() - tStart)*1000/CLOCKS_PER_SEC);
 
     return 0;
 }
