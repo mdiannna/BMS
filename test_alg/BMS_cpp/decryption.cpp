@@ -19,7 +19,7 @@ string simpleDecrypt(string ciphertext, arr K,  int key_len)
 	int cipher_pos = 0;
 	int ciphertext_len = ciphertext.length();
 
-	cout << "----ciphertext=" <<  ciphertext << "    ciphertext_len =" << ciphertext_len << endl;
+	// cout << "----ciphertext=" <<  ciphertext << "    ciphertext_len =" << ciphertext_len << endl;
 
     while(cipher_pos<ciphertext_len){
         cipher_pos = cipher_pos + K[key_pos];
@@ -86,7 +86,7 @@ string blockDecrypt(string ciphertext, arr K, int key_len, int block_size)
 
         string cipherblock = ciphertext.substr(block_pos, cipherblock_len);
 
-        cout << "Cipherblock: " << cipherblock << "   Plainblock:" << simpleDecrypt(cipherblock, K, key_len) << endl;
+        // cout << "Cipherblock: " << cipherblock << "   Plainblock:" << simpleDecrypt(cipherblock, K, key_len) << endl;
         plaintext += simpleDecrypt(cipherblock, K, key_len);
 
         block_pos += cipherblock_len;
@@ -99,7 +99,7 @@ string blockDecrypt(string ciphertext, arr K, int key_len, int block_size)
 
 string blockDecryptV4(string ciphertext, arr K, int key_len, int block_size)
 {
-    cout << "start decryption function" << endl;
+
 
     int block_pos = 0;
     int ciphertext_len = ciphertext.length();
@@ -111,15 +111,11 @@ string blockDecryptV4(string ciphertext, arr K, int key_len, int block_size)
 
     arr K2;
 
-    cout << "2start decryption function" << endl;
 
     while(block_pos<ciphertext_len-1)
     {
         remaining_ciphertext_len = ciphertext_len-block_pos-1;
         cipherblock_len = calcCipherblockLenV4(block_size, K, key_len);
-
-        cout << "cipherblock length:" << cipherblock_len << endl;
-    
 
         if(remaining_ciphertext_len < cipherblock_len)
             cipherblock_len = remaining_ciphertext_len;
@@ -128,19 +124,14 @@ string blockDecryptV4(string ciphertext, arr K, int key_len, int block_size)
         raw_plaintext = simpleDecrypt(cipherblock, K, key_len);
 
         plaintext += separateText(raw_plaintext, key_len);
-        cout << "raw_plaintext:" << raw_plaintext << endl;
-        //////////////////////
-          // block_pos += cipherblock_len;
-    // }
+       
         key_int = atoi(separateKey(raw_plaintext, key_len).c_str());
         
-        cout << "key_int:" << key_int << endl;
+        // cout << "key_int:" << key_int << endl;
         K = readKey(key_int, key_len);
-        cout << "K:" << endl;
-        printArray(K, key_len);
 
         block_pos += cipherblock_len;
     }
     return plaintext;
-    // return ciphertext;
+    
 }

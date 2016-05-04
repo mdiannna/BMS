@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
         cout << "Error! please specify message and key";
     else{
 
-        clock_t tStart = clock();
+
         srand (time(NULL));
 
         string plaintext= "";
@@ -40,13 +40,15 @@ int main(int argc, char *argv[]){
 
         readKey(int_key, K1, key_len);
 
-        cout << "plaintext:" << plaintext;
-        cout << "int_key:" << int_key;
-        cout << "key_len:" << key_len;
+        // cout << "plaintext:" << plaintext;
+        // cout << "int_key:" << int_key;
+        // cout << "key_len:" << key_len;
         
+        clock_t tStart = clock();
+
         ciphertext = blockEncryptionV4 ( block_size ,  plaintext , K1, key_len);
         // Ca sa mearga graficele trebuie sters rindul
-        cout << "Ciphertext: " <<  ciphertext << endl << "key_len:" << key_len << endl;
+        // cout << "Ciphertext: " <<  ciphertext << endl << "key_len:" << key_len << endl;
 
 
         printf("%.29f\n", (double)(clock() - tStart)*1000/CLOCKS_PER_SEC);

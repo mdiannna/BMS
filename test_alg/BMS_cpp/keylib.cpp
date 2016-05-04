@@ -14,13 +14,10 @@ using namespace std;
 int* readKey(int FK_int, int first_key_len){
     arr FK;
 
-    cout << "***" << endl;
     for(int i=first_key_len-1; i>=0; i--){
         FK[i] = FK_int % 10;
         FK_int = FK_int / 10;
-        cout << FK[i];
     }
-    cout << "***" << endl;
 
     return FK;
 }
