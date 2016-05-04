@@ -83,11 +83,14 @@ int * getRandom( int key_len)
 
 int * generateRandomKey(int key_len){
 
-    int random_key[key_len];
-    srand( (unsigned)time( NULL ) );
+    arr random_key;
+    cout << "***" << endl;
+    // srand( (unsigned)time( NULL ) );
     for(int i=0; i<key_len; i++){
         random_key[i] = rand() % 9 + 1;
+        cout << random_key[i] << " ";
     }
+    cout << "***" << endl; 
     return random_key;
 }
 

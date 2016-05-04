@@ -36,12 +36,16 @@ int main(int argc, char *argv[]){
 
         plaintext = argv[1];
         int_key = atoi(argv[2]);
-        // cout << "plaintext:" << plaintext;
-        // cout << "int_key:" << int_key;
+
 
         readKey(int_key, K1, key_len);
+
+        cout << "plaintext:" << plaintext;
+        cout << "int_key:" << int_key;
+        cout << "key_len:" << key_len;
         
         ciphertext = blockEncryptionV4 ( block_size ,  plaintext , K1, key_len);
+        // Ca sa mearga graficele trebuie sters rindul
         cout << "Ciphertext: " <<  ciphertext << endl << "key_len:" << key_len << endl;
 
 
