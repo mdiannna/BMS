@@ -117,7 +117,7 @@ def test_enc_BMS(args):
 
 def test_dec_BMS(args):
 	# command = "python " + "BMS_inloc" + ".py" + args
-	command = './BMS_cpp/encrypt' + args
+	command = './BMS_cpp/decrypt' + args
 	print command
 	return commands.getstatusoutput(command)[1].replace('\n', '')
 	# print "memory:" , resource.getrusage(resource.RUSAGE_SELF).ru_maxrss, "bytes"
