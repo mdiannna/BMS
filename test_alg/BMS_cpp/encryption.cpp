@@ -138,21 +138,14 @@ string blockEncryptionV4 (int block_size , string plaintext , arr K, int key_len
             block_size = plaintext_len-letter_pos;
 
         ithmessage = plaintext.substr(letter_pos, block_size);
-        cout << "ith message:" << ithmessage << endl;
+        // cout << "ith message:" << ithmessage << endl;
 
         // !!! Carefully! Risk of error!!
        
-
         J = generateRandomKey(key_len);
-       
-       // for ( int i = 0; i < 10; i++ )
-       // {
-       //     arr_J[i] = *(J + i) << endl;
-       // }
-       //  // pointerToArray(J, arr_J, key_len);
-
-         cout << "Random key:";
-        printArray(prev_K, key_len);
+  
+        //  cout << "Random key:";
+        // printArray(prev_K, key_len);
 
         string rand_key = intArrTochar(J, key_len);
         ithmessage += rand_key;

@@ -20,7 +20,7 @@ int main(int argc, char *argv[]){
     cout << "AAAAAA";
     if(argc <3)
         cout << "Error! please specify message and key";
-    // else{
+    else
 {
 
         clock_t tStart = clock();
@@ -32,19 +32,19 @@ int main(int argc, char *argv[]){
         int key_len = 0;
         int int_key;
         arr K1;
+    
+        
+        plaintext = argv[1];
+        int_key = atoi(argv[2]);
 
-        // cout << "argc:" << argc;
-        // cout << "argumens:" << argv[1] << argv[1];
 
-        // plaintext = argv[1];
-        // int_key = atoi(argv[2]);
-        plaintext = "AAAAAAs";
-        int_key = 12;
-///        // scanf("%d", &int_key);
-        // printf("Key: %d\n", int_key);
-
-cout <<"yes";
         readKey(int_key, K1, key_len);
+
+        cout << "plaintext:" << plaintext;
+        cout << "int_key:" << int_key;
+        cout << "key_len:" << key_len;
+        
+        
 ///        // scanf("%d" , &block_size);
 
         // printf("bLOCK SIZE: %d\n", block_size);
@@ -62,9 +62,9 @@ cout <<"yes";
 
         // ciphertext = "11111111111111111111111111111111111111111111";
 
-        cout << "XX" << endl;
-        plaintext = simpleDecrypt(ciphertext, arr K1, key_len);
-        // plaintext = blockDecryptV4(ciphertext, K1, key_len, block_size);
+    
+        // plaintext = simpleDecrypt(ciphertext, K1, key_len);
+        plaintext = blockDecryptV4(ciphertext, K1, key_len, block_size);
         cout << "Decrypted plaintext: "<< plaintext << endl;
 
         // printf("------------------------\n");

@@ -12,12 +12,15 @@ using namespace std;
 
 // Read First Key from standard input
 int* readKey(int FK_int, int first_key_len){
-    int * FK;
+    arr FK;
 
+    cout << "***" << endl;
     for(int i=first_key_len-1; i>=0; i--){
         FK[i] = FK_int % 10;
         FK_int = FK_int / 10;
+        cout << FK[i];
     }
+    cout << "***" << endl;
 
     return FK;
 }
@@ -84,13 +87,13 @@ int * getRandom( int key_len)
 int * generateRandomKey(int key_len){
 
     arr random_key;
-    cout << "***" << endl;
+
     // srand( (unsigned)time( NULL ) );
     for(int i=0; i<key_len; i++){
         random_key[i] = rand() % 9 + 1;
-        cout << random_key[i] << " ";
+        // cout << random_key[i] << " ";
     }
-    cout << "***" << endl; 
+    // cout << "***" << endl; 
     return random_key;
 }
 
